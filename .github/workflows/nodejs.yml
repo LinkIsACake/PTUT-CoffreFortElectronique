@@ -26,3 +26,5 @@ jobs:
         npm dist
       env:
         CI: true
+        entrypoint: electronApp
+      

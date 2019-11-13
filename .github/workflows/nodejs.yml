@@ -21,9 +21,8 @@ jobs:
         
     - name: npm install, build, and test
       run: |
-        npm install
-        yarn build
-        npm dist
+        yarn install
+        yarn dist
       env:
         CI: true
         entrypoint: electronApp

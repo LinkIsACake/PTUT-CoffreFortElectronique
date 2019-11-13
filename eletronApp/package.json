@@ -4,11 +4,17 @@
   "description": "UI",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "author": "Leo Sudreau",
   "license": "ISC",
   "devDependencies": {
-    "electron": "^7.1.1"
+    "electron": "^7.1.1",
+    "electron-builder": "^22.1.0"
+  },
+  "build":{
+      "appId": "com.electronapp.app"
   }
 }

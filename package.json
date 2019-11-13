@@ -1,6 +1,7 @@
 {
   "name": "eletron-app",
   "version": "1.0.0",
+  "repository" : "https://github.com/LinkIsACake/PTUT-CoffreFortElectronique.git"
   "description": "UI",
   "main": "main.js",
   "scripts": {

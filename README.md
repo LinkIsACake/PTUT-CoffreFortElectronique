@@ -30,7 +30,7 @@ Give examples
 
 * [Electron](https://electronjs.org/) - The web framework used
 * [https://www.npmjs.com/](https://maven.apache.org/) - Dependency Management
-* [ROME](https://nodejs.org/en/) - The web framework used
+* [NODEJS](https://nodejs.org/en/) - The web framework used
 
 ## Contributing
 

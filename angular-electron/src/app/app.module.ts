@@ -16,11 +16,13 @@ import {MatIconModule} from "@angular/material/icon";
 import { SettingsComponent } from './settings/settings.component';
 import { UploadComponent } from './upload/upload.component';
 import { FilesComponent } from './files/files.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'settings', component: SettingsComponent},
+	{ path: 'login', component: LoginComponent},
   { path: '**', component: HomeComponent }
 ];
 
@@ -31,7 +33,8 @@ const appRoutes: Routes = [
     AboutComponent,
     SettingsComponent,
     UploadComponent,
-    FilesComponent
+    FilesComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

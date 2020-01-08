@@ -1,14 +1,12 @@
 <main class="content">
-  <mat-sidenav-container class="example-container">
-    <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
       <a routerLink="/home" routerLinkActive="active">Home</a>
       <a routerLink="/about" routerLinkActive="active">About</a>
-    </mat-sidenav>
-    <mat-sidenav-content>
-      <p><mat-checkbox [(ngModel)]="opened"></mat-checkbox></p>
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
-  </mat-sidenav-container>
+    </mat-toolbar-row>
+    </mat-toolbar>
+    <router-outlet></router-outlet>
+
 </main>
 
 

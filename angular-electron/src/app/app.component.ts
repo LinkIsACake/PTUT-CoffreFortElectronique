@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
-  events: string[] = [];
   opened: boolean;
   title = 'angular-electron';
 }

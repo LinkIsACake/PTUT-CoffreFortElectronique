@@ -11,6 +11,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {FormsModule} from "@angular/forms";
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -33,8 +35,10 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
-    )
+      {enableTracing: true} // <-- debugging purposes only
+    ),
+    MatToolbarModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

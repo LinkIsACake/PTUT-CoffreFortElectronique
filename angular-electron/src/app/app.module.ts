@@ -3,20 +3,22 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './components/home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {FormsModule} from "@angular/forms";
 import { RouterModule, Routes } from '@angular/router';
-import { AboutComponent } from './about/about.component';
+import { AboutComponent } from './components/about/about.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
-import { SettingsComponent } from './settings/settings.component';
-import { UploadComponent } from './upload/upload.component';
-import { FilesComponent } from './files/files.component';
-import { LoginComponent } from './login/login.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { UploadComponent } from './components/upload/upload.component';
+import { FilesComponent } from './components/files/files.component';
+import { LoginComponent } from './components/login/login.component';
+import {HttpClientModule} from "@angular/common/http";
+import {MatCardModule} from "@angular/material/card";
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -47,8 +49,10 @@ const appRoutes: Routes = [
       appRoutes,
       {enableTracing: true} // <-- debugging purposes only
     ),
+    HttpClientModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

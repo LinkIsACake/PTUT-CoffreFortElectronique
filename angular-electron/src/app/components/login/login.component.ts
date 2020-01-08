@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl} from '@angular/forms';
+import {FormControl, NgForm} from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-login',

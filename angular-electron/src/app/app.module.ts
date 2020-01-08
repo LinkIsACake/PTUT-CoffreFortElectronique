@@ -14,6 +14,8 @@ import { AboutComponent } from './about/about.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import { SettingsComponent } from './settings/settings.component';
+import { UploadComponent } from './upload/upload.component';
+import { FilesComponent } from './files/files.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -27,7 +29,9 @@ const appRoutes: Routes = [
     AppComponent,
     HomeComponent,
     AboutComponent,
-    SettingsComponent
+    SettingsComponent,
+    UploadComponent,
+    FilesComponent
   ],
   imports: [
     BrowserModule,

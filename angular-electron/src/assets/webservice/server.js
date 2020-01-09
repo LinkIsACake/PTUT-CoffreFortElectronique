@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const router = express.Router();
 
 const cors = require('cors');
 const fs = require('fs');
@@ -7,14 +8,24 @@ const fs = require('fs');
 
 app.use(cors())
 
-app.get('/', (req, res) => {
+router.get('/readFolder', (req, res) => {
+  console.log("readFolder request")
   let filesList;
 
   filesList = fs.readdirSync("./");
 
-  console.log(filesList)
   res.send(JSON.stringify(filesList))
 });
+
+router.get('/readFile/:name',(req,res) => {
+  const filename = req.url.slice(10);
+  console.log("readFile request for : " + filename);
+
+  let fileStat = fs.statSync(filename);
+  res.send(JSON.stringify(fileStat))
+});
+
+app.use(router)
 
 // Listen to the App Engine-specified port, or 8080 otherwise
 const PORT = process.env.PORT || 8080;

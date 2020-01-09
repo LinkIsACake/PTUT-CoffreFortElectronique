@@ -1,4 +1,27 @@
 <div *ngFor="let file of fileList">
-  <mat-card>{{file}}</mat-card>
+  <mat-card>{{file}}
+    <button value="{{file}}" #detail mat-button (click)="FileDetail(detail.value)" >detail</button>
+
+  </mat-card>
 </div>
+<mat-card *ngIf="FileDetail">Detail fichier : {{fileDetail.name}}
+  <mat-card-content *ngIf="fileDetail">
+    <mat-list>
+      <mat-list-item>
+        uid : {{fileDetail.uid}}
+      </mat-list-item>
+      <mat-list-item>
+        gid : {{fileDetail.gid}}
+      </mat-list-item>
+      <mat-list-item>
+        size: {{fileDetail.size}}
+      </mat-list-item>
+      <mat-list-item>
+        birthtime: {{fileDetail.birthtime}}
+      </mat-list-item>
+    </mat-list>
+
+  </mat-card-content>
+</mat-card>
+
 

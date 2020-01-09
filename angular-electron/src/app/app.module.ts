@@ -19,6 +19,8 @@ import { FilesComponent } from './components/files/files.component';
 import { LoginComponent } from './components/login/login.component';
 import {HttpClientModule} from "@angular/common/http";
 import {MatCardModule} from "@angular/material/card";
+import {MatTableModule} from "@angular/material/table";
+import {MatListModule} from "@angular/material/list";
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -52,7 +54,9 @@ const appRoutes: Routes = [
     HttpClientModule,
     MatToolbarModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    MatTableModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

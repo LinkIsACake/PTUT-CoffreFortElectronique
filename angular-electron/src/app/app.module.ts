@@ -21,6 +21,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -56,7 +57,8 @@ const appRoutes: Routes = [
     MatIconModule,
     MatCardModule,
     MatTableModule,
-    MatListModule
+    MatListModule,
+    MatGridListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit  {
   }
 
 	onSubmit(form: NgForm) {
-	    console.log(form.value);
+	    console.log("Valeurs entrées: "+form.value);
+			const login = form.value['login'];
+			const passwd = form.value['password'];
 	}
 }

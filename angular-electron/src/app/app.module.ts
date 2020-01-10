@@ -24,6 +24,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { ErrorNotFoundComponent } from './components/error-not-found/error-not-found.component';
 import {MatChipsModule} from "@angular/material/chips";
+import {MatButtonModule} from "@angular/material/button";
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -63,7 +64,8 @@ const appRoutes: Routes = [
     MatTableModule,
     MatListModule,
     MatGridListModule,
-    MatChipsModule
+    MatChipsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,9 +1,12 @@
-<mat-grid-list cols="5" rowHeight="200px" >
+<mat-grid-list cols="5" rowHeight="250px" >
   <mat-grid-tile *ngFor="let file of fileList"
       [colspan]=1
       [rowspan]=1>
     <mat-card class="card">
-      <mat-card-title>{{file.name}}</mat-card-title>
+      <mat-card-title>
+        <mat-icon>file_copy</mat-icon>
+        <a>{{file.name}}</a>
+      </mat-card-title>
       <mat-card-content>
         <mat-list>
           <mat-list-item>
@@ -18,6 +21,11 @@
         </mat-list>
       </mat-card-content>
     </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-fab color="primary">
+      <mat-icon>add</mat-icon>
+    </button>
   </mat-grid-tile>
 </mat-grid-list>
 

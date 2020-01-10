@@ -11,8 +11,6 @@ import {map} from "rxjs/operators";
 export class HomeService {
   private configUrl = 'http://localhost:8080/';
 
-
-
   constructor(private http: HttpClient) { }
 
   readFolder() {

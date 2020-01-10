@@ -23,6 +23,8 @@ import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { DndDirective } from './components/upload/dnd.directive';
+import { ErrorNotFoundComponent } from './components/error-not-found/error-not-found.component';
+import {MatChipsModule} from "@angular/material/chips";
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -30,7 +32,7 @@ const appRoutes: Routes = [
   { path: 'settings', component: SettingsComponent},
   { path: 'login', component: LoginComponent},
   { path: 'upload', component: UploadComponent},
-  { path: '**', component: HomeComponent }
+  { path: '**', component: ErrorNotFoundComponent }
 ];
 
 @NgModule({
@@ -42,7 +44,11 @@ const appRoutes: Routes = [
     UploadComponent,
     FilesComponent,
     LoginComponent,
+<<<<<<< HEAD
     DndDirective
+=======
+    ErrorNotFoundComponent
+>>>>>>> 8afb70ad30bd9384b1d476ca043eb8a08cd800d5
   ],
   imports: [
     BrowserModule,
@@ -61,7 +67,8 @@ const appRoutes: Routes = [
     MatCardModule,
     MatTableModule,
     MatListModule,
-    MatGridListModule
+    MatGridListModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

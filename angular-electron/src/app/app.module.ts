@@ -27,7 +27,8 @@ const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'settings', component: SettingsComponent},
-	{ path: 'login', component: LoginComponent},
+  { path: 'login', component: LoginComponent},
+  { path: 'upload', component: UploadComponent},
   { path: '**', component: HomeComponent }
 ];
 

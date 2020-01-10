@@ -8,7 +8,9 @@ export class File implements Deserializable {
     this.name = name
     this.id = File.size
   }
+
   static size = 0;
+
   id: number;
   name: String;
   uid: String;

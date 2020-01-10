@@ -22,6 +22,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import {MatGridListModule} from "@angular/material/grid-list";
+import { ErrorNotFoundComponent } from './error-not-found/error-not-found.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -29,7 +30,7 @@ const appRoutes: Routes = [
   { path: 'settings', component: SettingsComponent},
   { path: 'login', component: LoginComponent},
   { path: 'upload', component: UploadComponent},
-  { path: '**', component: HomeComponent }
+  { path: '**', component: ErrorNotFoundComponent }
 ];
 
 @NgModule({
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
     SettingsComponent,
     UploadComponent,
     FilesComponent,
-    LoginComponent
+    LoginComponent,
+    ErrorNotFoundComponent
   ],
   imports: [
     BrowserModule,

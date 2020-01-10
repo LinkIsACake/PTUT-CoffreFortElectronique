@@ -45,11 +45,8 @@ const appRoutes: Routes = [
     UploadComponent,
     FilesComponent,
     LoginComponent,
-<<<<<<< HEAD
-    DndDirective
-=======
+    DndDirective,
     ErrorNotFoundComponent
->>>>>>> 8afb70ad30bd9384b1d476ca043eb8a08cd800d5
   ],
   imports: [
     BrowserModule,

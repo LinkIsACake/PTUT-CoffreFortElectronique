@@ -22,6 +22,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import {MatGridListModule} from "@angular/material/grid-list";
+import { DndDirective } from './components/upload/dnd.directive';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
     SettingsComponent,
     UploadComponent,
     FilesComponent,
-    LoginComponent
+    LoginComponent,
+    DndDirective
   ],
   imports: [
     BrowserModule,

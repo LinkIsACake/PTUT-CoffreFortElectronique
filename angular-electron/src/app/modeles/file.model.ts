@@ -2,6 +2,7 @@
 import {Deserializable} from "./deserializeble.model";
 
 export class File implements Deserializable {
+
   constructor(name: string) {
     File.size+=1;
     this.name = name

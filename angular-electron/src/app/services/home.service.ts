@@ -21,7 +21,7 @@ export class HomeService {
 
   readFile(name : String) : Observable<File> {
     let res = this.http.get(this.configUrl + "readFile" + '/' + name);
-    let object = res.pipe(map((res:Response) =>  new File().deserialize(res)));
+    let object = res.pipe(map((res:Response) =>  new File("").deserialize(res)));
     return object;
   }
 }

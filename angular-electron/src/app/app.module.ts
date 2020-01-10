@@ -22,6 +22,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import {MatGridListModule} from "@angular/material/grid-list";
+import { DndDirective } from './components/upload/dnd.directive';
 import { ErrorNotFoundComponent } from './components/error-not-found/error-not-found.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatButtonModule} from "@angular/material/button";
@@ -44,7 +45,11 @@ const appRoutes: Routes = [
     UploadComponent,
     FilesComponent,
     LoginComponent,
+<<<<<<< HEAD
+    DndDirective
+=======
     ErrorNotFoundComponent
+>>>>>>> 8afb70ad30bd9384b1d476ca043eb8a08cd800d5
   ],
   imports: [
     BrowserModule,

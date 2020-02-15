@@ -14,7 +14,7 @@ import { AboutComponent } from './components/about/about.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import { SettingsComponent } from './components/settings/settings.component';
-import { UploadComponent } from './components/upload/upload.component';
+import { UploadComponent as UploadComponent } from './components/upload/upload-file.component';
 import { FilesComponent } from './components/files/files.component';
 import { LoginComponent } from './components/login/login.component';
 import {HttpClientModule} from "@angular/common/http";
@@ -22,10 +22,11 @@ import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import {MatGridListModule} from "@angular/material/grid-list";
-import { DndDirective } from './components/upload/dnd.directive';
+import { DragDropDirective } from './components/upload/drag-drop.directive';
 import { ErrorNotFoundComponent } from './components/error-not-found/error-not-found.component';
 import {MatChipsModule} from "@angular/material/chips";
 import {MatButtonModule} from "@angular/material/button";
+import {MatDialogModule} from "@angular/material/dialog";
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -45,7 +46,7 @@ const appRoutes: Routes = [
     UploadComponent,
     FilesComponent,
     LoginComponent,
-    DndDirective,
+    DragDropDirective,
     ErrorNotFoundComponent
   ],
   imports: [
@@ -67,9 +68,11 @@ const appRoutes: Routes = [
     MatListModule,
     MatGridListModule,
     MatChipsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [UploadComponent]
 })
 export class AppModule { }

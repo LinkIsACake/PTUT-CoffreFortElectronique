@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {HomeService} from "../../services/home.service";
 import {File} from "../../modeles/file.model"
+import { UploadComponent} from "../upload/upload-file.component";
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,8 @@ export class HomeComponent implements OnInit {
   private fileList : File[];
   private fileDetail : File;
 
-  constructor(private homeService :HomeService) {
+  constructor(private homeService : HomeService,public matDialog: MatDialog) {
+
     this.fileList = []
     this.homeService.readFolder()
       .subscribe((data: Array<String>) => {
@@ -24,6 +27,8 @@ export class HomeComponent implements OnInit {
           })
         })
       })
+
+
   }
 
   ngOnInit() {
@@ -38,4 +43,11 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  openUpload() {
+    const uploadConfig = new MatDialogConfig();
+    uploadConfig.id = "upload-file-component";
+    uploadConfig.height = "350px";
+    uploadConfig.width = "600px";
+    const modalDialog = this.matDialog.open(UploadComponent, uploadConfig);
+  }
 }

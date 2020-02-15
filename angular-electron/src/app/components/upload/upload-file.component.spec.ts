@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UploadComponent } from './upload-file.component';
 
-function describe(uploadComponent: string, param2: () => void) {
+describe('UploadComponent', () => {
   let component: UploadComponent;
   let fixture: ComponentFixture<UploadComponent>;
 
@@ -10,7 +10,7 @@ function describe(uploadComponent: string, param2: () => void) {
     TestBed.configureTestingModule({
       declarations: [ UploadComponent ]
     })
-      .compileComponents();
+    .compileComponents();
   }));
 
   beforeEach(() => {
@@ -22,6 +22,4 @@ function describe(uploadComponent: string, param2: () => void) {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-}
-
-
+});

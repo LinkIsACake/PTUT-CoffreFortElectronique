@@ -14,7 +14,7 @@ import { AboutComponent } from './components/about/about.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatIconModule} from "@angular/material/icon";
 import { SettingsComponent } from './components/settings/settings.component';
-import { UploadComponent as UploadComponent } from './components/upload/upload-file.component';
+import { UploadComponent } from './components/upload/upload-file.component';
 import { FilesComponent } from './components/files/files.component';
 import { LoginComponent } from './components/login/login.component';
 import {HttpClientModule} from "@angular/common/http";
@@ -33,7 +33,6 @@ const appRoutes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'settings', component: SettingsComponent},
   { path: 'login', component: LoginComponent},
-  { path: 'upload', component: UploadComponent},
   { path: '**', component: ErrorNotFoundComponent }
 ];
 

@@ -1,5 +1,5 @@
 import {any} from "codelyzer/util/function";
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 
 @Component({
   selector: 'app-home',
@@ -7,11 +7,9 @@ import {Component} from "@angular/core";
   styleUrls: ['./upload-file.component.css']
 })
 
-class File{
-  public name:String;
-}
 
-export class UploadComponent {
+
+export class UploadComponent implements OnInit {
   files = [];
 
   uploadFile(event: Array<File>) {
@@ -25,4 +23,11 @@ export class UploadComponent {
     this.files.splice(index, 1)
 
   }
+
+  ngOnInit(): void {
+  }
+}
+
+export class File{
+  public name:String;
 }

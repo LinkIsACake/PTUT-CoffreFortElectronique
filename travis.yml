@@ -9,7 +9,7 @@ script:
   - python -m PyInstaller --onefile --name main main.py
 deploy:
   provider: releases
-  api_key: SECRET_KEY
+  token: SECRET_KEY
   file: "dist/main"
   skip_cleanup: true
   on:

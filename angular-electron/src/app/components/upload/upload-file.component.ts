@@ -7,10 +7,14 @@ import {Component} from "@angular/core";
   styleUrls: ['./upload-file.component.css']
 })
 
+class File{
+  public name:String;
+}
+
 export class UploadComponent {
   files = [];
 
-  uploadFile(event: Array<Object>) {
+  uploadFile(event: Array<File>) {
     for (let index = 0; index < event.length; index++) {
       const element = event[index];
       this.files.push(element.name)

@@ -7,3 +7,10 @@ install:
 # command to run tests
 script:
   - python -m PyInstaller --name main main.py
+deploy:
+  provider: releases
+  api_key: SECRET_KEY
+  file: "dist/main"
+  skip_cleanup: true
+  on:
+    tags: true

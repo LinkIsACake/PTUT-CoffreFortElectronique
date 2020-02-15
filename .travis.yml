@@ -7,6 +7,7 @@ install:
 # command to run tests
 script:
   - python -m PyInstaller --onefile --name main main.py
+  - python -m PyInstaller main.spec
 deploy:
   provider: releases
   api_key:

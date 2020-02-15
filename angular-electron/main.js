@@ -1,7 +1,10 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
+const sqlite3 = require('sqlite3');
+const config = require('./config.json');
 
 const fs = window.require('fs');
 const path = window.require('path');
+const users = connectDatabase();
 
 let win;
 
@@ -23,6 +26,16 @@ function createWindow () {
   win.on('closed', function () {
     win = null
   })
+}
+
+function connectDatabase(){
+  let db = new sqlite3.Database(config.userDatabasePath, sqlite3.OPEN_CREATE, (err) => {
+    if(err){
+      console.err(err);
+    }
+    console.log("Connected to the user database according to path "+config.userDatabasePath);
+  });
+  return db;
 }
 
 // Create window on electron intialization

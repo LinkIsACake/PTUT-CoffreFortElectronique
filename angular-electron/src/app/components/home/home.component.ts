@@ -43,6 +43,7 @@ export class HomeComponent implements OnInit {
       });
   }
 
+  
   openUpload() {
     const uploadConfig = new MatDialogConfig();
     uploadConfig.id = "upload-file-component";

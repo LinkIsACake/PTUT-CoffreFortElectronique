@@ -1,4 +1,5 @@
 const express = require('express');
+const mime = require('mime');
 const app = express();
 const router = express.Router();
 
@@ -23,12 +24,27 @@ router.get('/readFolder', (req, res) => {
   res.send(JSON.stringify(filesList))
 });
 
-router.get('/readFile/:name',(req,res) => {
-  const filename = req.url.slice(10);
-  console.log("readFile request for : " + filename);
+router.get('/getFileInfo/:name',(req,res) => {
+  const filename = req.url.split("/").pop();
+  console.log("getFileInfo request for : " + filename);
 
   let fileStat = fs.statSync(dir + '/' + filename);
   res.send(JSON.stringify(fileStat))
+});
+
+router.get('/getFile/:name', (req,res) => {
+    const filename = req.url.split("/").pop();
+    console.log("getFile request for : " + filename);
+    
+  let file = dir + '/' + filename;
+  let mimetype = mime.lookup(file);
+
+  res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+  res.setHeader('Content-type', mimetype);
+  
+  let filestream = fs.createReadStream(file);
+  // decrypt file
+  filestream.pipe(res);
 });
 
 app.use(router)

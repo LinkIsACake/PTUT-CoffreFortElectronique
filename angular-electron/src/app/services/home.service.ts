@@ -18,8 +18,13 @@ export class HomeService {
   }
 
   readFile(name : String) : Observable<File> {
-    let res = this.http.get(this.configUrl + "readFile" + '/' + name);
+    let res = this.http.get(this.configUrl + "getFileInfo" + '/' + name);
     let object = res.pipe(map((res:Response) =>  new File("").deserialize(res)));
     return object;
+  }
+  
+  getFile(name: String) {
+      var res = this.http.request('GET', this.configUrl + "getFile" + '/' + name, {responseType:'json'});
+      return "ok";
   }
 }

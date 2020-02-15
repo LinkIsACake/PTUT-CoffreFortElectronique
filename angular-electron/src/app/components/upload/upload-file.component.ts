@@ -11,7 +11,7 @@ export class UploadComponent {
   files = [];
 
   uploadFile(event: Event) {
-    for (let index = 0; index < event.length; index++) {
+    for (let index = 0; index < 5; index++) {
       const element = event[index];
       this.files.push(element.name)
     }

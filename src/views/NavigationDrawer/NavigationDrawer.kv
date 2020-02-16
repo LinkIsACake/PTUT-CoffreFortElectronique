@@ -1,12 +1,3 @@
-from kivy.uix.boxlayout import BoxLayout
-
-from kivymd.app import MDApp
-from kivy.lang import Builder
-from kivy.properties import StringProperty
-
-from kivymd.uix.list import OneLineAvatarListItem, IconLeftWidget
-
-KV = '''
 #:import IconLeftWidget kivymd.uix.list.IconLeftWidget
 #:import images_path kivymd.images_path
 
@@ -15,7 +6,7 @@ KV = '''
     theme_text_color: 'Custom'
     divider: None
 
-    CIconLeftWidget:
+    CustomIconLeftWidget:
         icon: root.icon
         on_touch_down: self.on_click()
 
@@ -90,6 +81,11 @@ Screen:
                         elevation: 10
                         left_action_items: [['menu', lambda x: nav_drawer.toggle_nav_drawer()]]
 
+                    MDRaisedButton:
+                        text: 'TEST KIVY TOAST'
+                        on_release: app.show_toast()
+                        pos_hint: {'center_x': .5, 'center_y': .5}
+
                     Widget:
 
 
@@ -98,46 +94,3 @@ Screen:
 
             ContentNavigationDrawer:
                 id: content_drawer
-
-'''
-
-
-class ContentNavigationDrawer(BoxLayout):
-    pass
-
-
-class CustomIconLeftWidget(IconLeftWidget):
-    def on_click(self):
-        print('you touched me!' + self.icon)
-        return True
-
-class NavigationItem(OneLineAvatarListItem):
-    icon = StringProperty()
-
-
-
-
-
-
-
-class TestNavigationDrawer(MDApp):
-    def build(self):
-        return Builder.load_string(KV)
-
-
-    def on_start(self):
-        for items in {
-            "home-circle-outline": "Home",
-            "update": "Login",
-            "settings-outline": "Settings",
-            "exit-to-app": "Exit",
-        }.items():
-            self.root.ids.content_drawer.ids.box_item.add_widget(
-                NavigationItem(
-                    text=items[1],
-                    icon=items[0],
-                )
-            )
-
-
-TestNavigationDrawer().run()

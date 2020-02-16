@@ -1,4 +1,7 @@
-from src.views.NavigationDrawer import NavigationDrawer
+import logging
+
+from controllers import MainController
 
 if __name__ == '__main__':
-    navigation = NavigationDrawer.NavigationDrawer()
+    logging.basicConfig(level=logging.INFO)
+    mainController = MainController.MainController()

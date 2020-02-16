@@ -1,10 +1,143 @@
-from kivy.app import App
-from kivy.uix.label import Label
+from kivy.uix.boxlayout import BoxLayout
+
+from kivymd.app import MDApp
+from kivy.lang import Builder
+from kivy.properties import StringProperty
+
+from kivymd.uix.list import OneLineAvatarListItem, IconLeftWidget
+
+KV = '''
+#:import IconLeftWidget kivymd.uix.list.IconLeftWidget
+#:import images_path kivymd.images_path
 
 
-class HelloApp(App):
+<NavigationItem>
+    theme_text_color: 'Custom'
+    divider: None
+
+    CIconLeftWidget:
+        icon: root.icon
+        on_touch_down: self.on_click()
+
+
+
+<ContentNavigationDrawer>
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        FloatLayout:
+            size_hint_y: None
+            height: "200dp"
+
+            canvas:
+                Color:
+                    rgba: app.theme_cls.primary_color
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+
+            BoxLayout:
+                id: top_box
+                size_hint_y: None
+                height: "200dp"
+                #padding: "10dp"
+                x: root.parent.x
+                pos_hint: {"top": 1}
+
+                FitImage:
+                    source: f"{images_path}kivymd_alpha.png"
+
+            MDIconButton:
+                icon: "close"
+                x: root.parent.x + dp(10)
+                pos_hint: {"top": 1}
+                on_release: root.parent.toggle_nav_drawer()
+
+            MDLabel:
+                markup: True
+                text: "KivyMDVersion: 0.102.1"
+                #pos_hint: {'center_y': .5}
+                x: root.parent.x + dp(10)
+                y: root.height - top_box.height + dp(10)
+                size_hint_y: None
+                height: self.texture_size[1]
+
+        ScrollView:
+            pos_hint: {"top": 1}
+
+            GridLayout:
+                id: box_item
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+
+
+Screen:
+
+    NavigationLayout:
+
+        ScreenManager:
+
+            Screen:
+
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    MDToolbar:
+                        title: "Navigation Drawer"
+                        md_bg_color: app.theme_cls.primary_color
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.toggle_nav_drawer()]]
+
+                    Widget:
+
+
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            ContentNavigationDrawer:
+                id: content_drawer
+
+'''
+
+
+class ContentNavigationDrawer(BoxLayout):
+    pass
+
+
+class CustomIconLeftWidget(IconLeftWidget):
+    def on_click(self):
+        print('you touched me!' + self.icon)
+        return True
+
+class NavigationItem(OneLineAvatarListItem):
+    icon = StringProperty()
+
+
+
+
+
+
+
+class TestNavigationDrawer(MDApp):
     def build(self):
-        return Label(text='Hello World!', font_size='100sp')
+        return Builder.load_string(KV)
 
 
-HelloApp().run()
+    def on_start(self):
+        for items in {
+            "home-circle-outline": "Home",
+            "update": "Login",
+            "settings-outline": "Settings",
+            "exit-to-app": "Exit",
+        }.items():
+            self.root.ids.content_drawer.ids.box_item.add_widget(
+                NavigationItem(
+                    text=items[1],
+                    icon=items[0],
+                )
+            )
+
+
+TestNavigationDrawer().run()

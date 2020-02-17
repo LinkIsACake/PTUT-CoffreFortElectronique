@@ -7,6 +7,8 @@ from kivy.properties import StringProperty
 from kivy.logger import Logger
 from kivymd.uix.list import OneLineAvatarListItem, IconLeftWidget
 
+from src.controllers.MainController import MainController
+
 
 class ContentNavigationDrawer(BoxLayout):
     pass
@@ -17,9 +19,11 @@ class CustomIconLeftWidget(IconLeftWidget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-    def on_click(self):
+    def on_click(self,app):
         Logger.info('you touched me!' + self.icon)
+        app.controller.on_click(app)
         return True
+
 
 
 class NavigationItem(OneLineAvatarListItem):
@@ -27,14 +31,19 @@ class NavigationItem(OneLineAvatarListItem):
 
 
 class NavigationDrawer(MDApp):
+    current_page : str
+    controller : MainController
 
-    def __init__(self, **kwargs):
+    def __init__(self,app:str,controller:MainController, **kwargs):
         Logger.info("NavigationDrawer Created")
+        self.current_page = app
+        self.controller = controller
+
         super().__init__(**kwargs)
         self.run()
 
     def build(self):
-        return Builder.load_file('./views/NavigationDrawer/NavigationDrawer.kv')
+        return Builder.load_file(self.current_page)
 
     def on_start(self):
         for items in {

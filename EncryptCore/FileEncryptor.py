@@ -2,6 +2,7 @@ from hashlib import sha256
 from nacl import secret, utils
 
 from EncryptCore.beforeImplemented import *
+from EncryptCore.exceptions import EncryptionKeyError, CryptoError
 from EncryptCore.tools import reduce
 
 def generateKey(fileData, userData):
@@ -27,25 +28,52 @@ def encrypt(destination, file, user):
     """
     Encrypt a file content using its datas and the user datas
     :param destination: a path of the destination to the encrypted file
-    :param file: a file object containing file infos and a filestream
+    :param file: a file object containing file infos
     :param user: a user object containing user infos
     """
     key = generateKey(file.infos, user.infos)
     box = secret.SecretBox(key)
     nonce = utils.random(secret.SecretBox.NONCE_SIZE)
 
-    file.EncryptDecriptFile(destination, box.encrypt, nonce)
+    readStream = file.openStream("rb")
+    writeStream = File(destination).openStream("wb")
+
+    try:
+        finished = False
+        while not finished:
+            chunk = readStream.read(1024)
+            if len(chunk) == 0: finished = True
+            else: writeStream.write(box.encrypt(chunk, nonce))
+    except CryptoError:
+        raise EncryptionKeyError()
+
+    readStream.close()
+    writeStream.close()
 
 def decrypt(destination, file, user):
     """
     Decrypt a file content using its datas and the user datas
     :param destination: a path of the destination to the decrypted file
-    :param file: a file object containt file infos and a filestream
+    :param file: a file object containt file infos
     :param user: a user object containing user infos
     """
     key = generateKey(file.infos, user.infos)
     box = secret.SecretBox(key)
-    file.EncryptDecriptFile(destination, box.decrypt)
+
+    readStream = file.openStream("rb")
+    writeStream = File(destination).openStream("wb")
+
+    try:
+        finished = False
+        while not finished:
+            chunk = readStream.read(1024)
+            if len(chunk) == 0: finished = True
+            else: writeStream.write(box.decrypt(chunk))
+    except CryptoError:
+        raise EncryptionKeyError()
+
+    readStream.close()
+    writeStream.close()
 
 if __name__ == '__main__':
     dec = File("./tests/test.txt")

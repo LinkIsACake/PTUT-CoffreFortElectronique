@@ -1,3 +1,4 @@
+pynacl
 Kivy>=1.11.1
 kivy.deps.sdl2
 kivy.deps.glew

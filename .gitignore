@@ -135,3 +135,7 @@ dmypy.json
 
 # PyChram IDE
 .idea/
+
+.vscode
+
+kivy_venv/

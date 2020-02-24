@@ -1,6 +1,5 @@
-from hashlib import sha256
 from math import ceil
-from struct import pack
+
 def generateKey(fileData, userData):
     """
     Generate a key from file datas and user datas
@@ -14,7 +13,7 @@ def generateKey(fileData, userData):
 
     return int.from_bytes(pwd.encode(), 'big')
 
-def generateCipherTime(key, cryptoTime):
+def generateCipherTime(key, cryptoMod):
     """
     Create a cipher time from key and the cryptoTime using modulus algebra
     a % n = b
@@ -27,24 +26,24 @@ def generateCipherTime(key, cryptoTime):
     - k the quotient of the equation (cipher time)
 
     :param key: a integer key
-    :param cryptoTime: a integer form time
+    :param cryptoMod: a integer form time
     :return: the cipher of the time using the modulus algebra
     """
-    b = key % cryptoTime
-    cipherTime = (key - b) // cryptoTime
+    b = key % cryptoMod
+    cipherMod = (key - b) // cryptoMod
 
     # 2.418 result of tests. Don't know yet where does this number come from...
-    bytesNeeded = ceil(len(str(cipherTime)) / 2.418) + 1
-    cipherTimeBytes = cipherTime.to_bytes(bytesNeeded, 'big', signed=False)
+    bytesNeeded = ceil(len(str(cipherMod)) / 2.418) + 1
+    cipherModBytes = cipherMod.to_bytes(bytesNeeded, 'big', signed=False)
 
-    return bytesNeeded, cipherTimeBytes
+    return bytesNeeded, cipherModBytes
 
-def getTimeFromCipher(key, cipherTime):
+def getTimeFromCipher(key, cipherMod):
     """
     Get the time of the cryptage from a cipher time
     :param key: the key to encrypt the file
-    :param cipherTime: a cipher of the encryptage time
+    :param cipherMod: a cipher of the encryptage time
     :return: the time of the cryptage of the file
     """
-    cryptoTime  = key // cipherTime
-    return cryptoTime
+    cryptoMod  = key // cipherMod
+    return cryptoMod

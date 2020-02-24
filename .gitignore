@@ -139,3 +139,6 @@ dmypy.json
 
 # PyChram IDE
 .idea/
+
+# EncryptCore developpement
+src/EncryptCore/tests/*

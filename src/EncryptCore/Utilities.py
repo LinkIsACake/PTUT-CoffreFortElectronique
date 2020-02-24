@@ -1,6 +1,6 @@
 from math import ceil
 
-def generateKey(fileData, userData):
+def generateKey(fileData: dict, userData: dict):
     """
     Generate a key from file datas and user datas
     :param fileData: a dictionary containing all file datas used to crypt a file (need to be unchanged through crypto! )
@@ -13,7 +13,7 @@ def generateKey(fileData, userData):
 
     return int.from_bytes(pwd.encode(), 'big')
 
-def generateCipherTime(key, cryptoMod):
+def generateCipherMod(key: int, cryptoMod: int):
     """
     Create a cipher time from key and the cryptoTime using modulus algebra
     a % n = b
@@ -38,7 +38,7 @@ def generateCipherTime(key, cryptoMod):
 
     return bytesNeeded, cipherModBytes
 
-def getTimeFromCipher(key, cipherMod):
+def getModFromCipher(key: int, cipherMod: int):
     """
     Get the time of the cryptage from a cipher time
     :param key: the key to encrypt the file

@@ -108,7 +108,7 @@ celerybeat.pid
 .venv
 env/
 venv/
-kivy_venv/
+**/kivy_venv/
 ENV/
 env.bak/
 venv.bak/
@@ -135,10 +135,7 @@ dmypy.json
 .pytype/
 
 #VScode files
-.vscode/
+**/.vscode/
+
 # PyChram IDE
 .idea/
-
-.vscode
-
-kivy_venv/

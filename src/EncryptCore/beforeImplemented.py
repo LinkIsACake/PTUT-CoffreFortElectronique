@@ -12,5 +12,5 @@ class File:
         self.infos = {"filename": basename(pathToFile)}
         self._path = pathToFile
 
-    def openStream(self, readWriteMode):
+    def openStream(self, readWriteMode: str):
         return open(self._path, readWriteMode)

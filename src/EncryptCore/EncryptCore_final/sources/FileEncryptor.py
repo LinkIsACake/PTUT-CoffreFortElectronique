@@ -1,0 +1,54 @@
+from nacl import secret, utils
+from hashlib import sha256
+from random import randrange
+from EncryptCore.exceptions import EncryptionKeyError, CryptoError
+from EncryptCore_final.Utilities import *
+from EncryptCore.beforeImplemented import *
+
+def encrypt(O0000OOO0O0OOO000, OOO00O0OOOOO00OO0, OO000OO000000O0O0):
+    O0O0OOO0OO00O00OO=randrange(1000000, 9999999)
+    OO00O00OO0OOOOOOO=OO0O00O00000O0O00(OOO00O0OOOOO00OO0.infos, OO000OO000000O0O0.infos)
+    O000OOO0000OO00OO,OO0OOO0OOOO000OOO=OO0O00O0OO00O0O00(OO00O00OO0OOOOOOO, O0O0OOO0OO00O00OO)
+    OOO00O000O000OO0O=secret.SecretBox(sha256(str(OO00O00OO0OOOOOOO % O0O0OOO0OO00O00OO).encode()).digest())
+    OO00O0O0OO00OOOOO=utils.random(secret.SecretBox.NONCE_SIZE)
+    O0O0OO00O0O00000O=OOO00O0OOOOO00OO0.openStream('rb')
+    O0OOOO00000000O00=File(O0000OOO0O0OOO000).openStream('wb')
+    O0OOOO00000000O00.write(O000OOO0000OO00OO)
+    O0OOOO00000000O00.write(OO0OOO0OOOO000OOO)
+    try:
+        O0000OO00O0000O0O = False
+        while not O0000OO00O0000O0O:
+            OOO00OOO000O00O00 = O0O0OO00O0O00000O.read(1024)
+            if len(OOO00OOO000O00O00) == 0:
+                O0000OO00O0000O0O = True
+            else:
+                O0OOOO00000000O00.write(OOO00O000O000OO0O.encrypt(OOO00OOO000O00O00, OO00O0O0OO00OOOOO))
+
+    except CryptoError:
+        raise EncryptionKeyError()
+    finally:
+        O0O0OO00O0O00000O.close()
+        O0OOOO00000000O00.close()
+
+
+def decrypt(O000O0O0OO0O0OO0O, O0O00OO000O000000, OOO000OOO0OOO0O0O):
+    O0O000000O0O0OOO0 = O0O00OO000O000000.openStream('rb')
+    OOOOOO0O0O00O00OO, OO0O0OOOO00O000O0 = OO0O00O0O000OOO00(int.from_bytes(O0O000000O0O0OOO0.read(4), 'little'))
+    O0O00O0OOO0OOOOO0 = OO0O00O00000O0O00(O0O00OO000O000000.infos, OOO000OOO0OOO0O0O.infos)
+    OOO0OOO0OOO0O0OO0 = sha256(str(O0O00O0OOO0OOOOO0 % OO0O0OO0OO00O0O00(O0O00O0OOO0OOOOO0, int.from_bytes(O0O000000O0O0OOO0.read(OOOOOO0O0O00O00OO), 'big'), OO0O0OOOO00O000O0)).encode())
+    O00O0O00OO00OOOOO = secret.SecretBox(OOO0OOO0OOO0O0OO0.digest())
+    OO000000O0O0OO0OO = File(O000O0O0OO0O0OO0O).openStream('wb')
+    try:
+        OO0O00O0O0000O000 = False
+        while not OO0O00O0O0000O000:
+            O0O0OOO0OO00OOOO0 = O0O000000O0O0OOO0.read(1024)
+            if len(O0O0OOO0OO00OOOO0) == 0:
+                OO0O00O0O0000O000 = True
+            else:
+                OO000000O0O0OO0OO.write(O00O0O00OO00OOOOO.decrypt(O0O0OOO0OO00OOOO0))
+
+    except CryptoError:
+        raise EncryptionKeyError()
+    finally:
+        O0O000000O0O0OOO0.close()
+        OO000000O0O0OO0OO.close()

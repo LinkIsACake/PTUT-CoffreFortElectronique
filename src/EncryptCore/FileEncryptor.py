@@ -1,45 +1,43 @@
 from nacl import secret, utils
-
-from EncryptCore.beforeImplemented import * # TODO: change this import to User and File objects when implemented
-from EncryptCore.exceptions import EncryptionKeyError, CryptoError
-from EncryptCore.Utilities import *
-
 from hashlib import sha256
 from random import randrange
 
-"""
-NOTE:
-Les commentaires sont dépassés, ils seront modifiés d'ici peu.
+from EncryptCore.exceptions import EncryptionKeyError, CryptoError
+from EncryptCore.Utilities import *
 
-"""
-
+# TODO: change this import to User and File objects when implemented
+from EncryptCore.beforeImplemented import *
 
 def encrypt(destination: str, file: File, user: User):
     """
-    Encrypt a file content using its datas and the user datas
-    :param destination: a path of the destination to the encrypted file
-    :param file: a file object containing file infos
-    :param user: a user object containing user infos
-    """
-    # Get the cryptoMod as random integer of a million [1M; 10M[
-    cryptoMod = randrange(10**6, 10**7-1)
-    # Create the encryption key using file infos, user infos and cryptoMod
-    tmpKey = generateKey(file.infos, user.infos)
-    # Compute a eTime as a value to store in file for retreiving cryptoMod
-    bytesNeeded, cipherMod = generateCipherMod(tmpKey, cryptoMod)
+    Encrypt a File object and place it to it's destination path
 
-    key = sha256(str(tmpKey % cryptoMod).encode())
+    :param destination: a destination path
+    :param file: the File object to encrypt and that store all file related infos
+    :param user: the User object that store all user related infos
+    """
+
+    # Create a random number that will be used as a base to modify the generated key
+    base = randrange(10**6, 10**7-1)
+    # Create the temporary key from the files and user infos
+    tmpKey = generateKey(file.infos, user.infos)
+    # Create a cipher of the base for being saved in the file (see Utilities:generateCipherMod for more details)
+    sizeAndRest, cipherBase = generateCipherMod(tmpKey, base)
+
+    # Create a sha256 hash of the temporary key on the random base and create the crypto box from it
+    key = sha256(str(tmpKey % base).encode())
     box = secret.SecretBox(key.digest())
     nonce = utils.random(secret.SecretBox.NONCE_SIZE)
 
+    # open the input file (decrypted) and the output file (encrypted)
     readStream = file.openStream("rb")
     writeStream = File(destination).openStream("wb")
 
-    # Write a 48 bytes of crypted time chunk
-    writeStream.write(bytesNeeded.to_bytes(2, 'big'))
-    writeStream.write(cipherMod)
+    # write the length of the cipher base and the base of the key
+    writeStream.write(sizeAndRest)
+    writeStream.write(cipherBase)
 
-    # crypt the file
+    # Read every 1024 bytes of the input file, encrypt it and save it to the output file
     try:
         finished = False
         while not finished:
@@ -54,25 +52,35 @@ def encrypt(destination: str, file: File, user: User):
 
 def decrypt(destination: str, file: File, user: User):
     """
-    Decrypt a file content using its datas and the user datas
-    :param destination: a path of the destination to the decrypted file
-    :param file: a file object containt file infos
-    :param user: a user object containing user infos
+    Decrypt a file and place it on it's destination path
+
+    :param destination: the destination path of the decrypted file
+    :param file: the encrypted file and all it's informations needed to generate the key
+    :param user: the user that contains all the infos used to generate the key
     """
+
+    # open the input file (encrypted)
     readStream = file.openStream("rb")
-    # Read the crypted time chunk
-    cipherModLength = int.from_bytes(readStream.read(2), 'big')
-    cipherMod = int.from_bytes(readStream.read(cipherModLength), 'big')
 
+    # get the length and rest bundle of the cipher base saved in the file and get the cipher base
+    sizeAndRestBundle = int.from_bytes(readStream.read(4), 'little')
+    size, rest = unbundleSizeAndRest(sizeAndRestBundle)
+    cipherBase = int.from_bytes(readStream.read(size), 'big')
+
+    # generate the key using the file infos and the user infos
     tmpKey = generateKey(file.infos, user.infos)
-    cryptoMod = getModFromCipher(tmpKey, cipherMod)
 
-    # Create the key using file infos, user infos and encryping time
-    key = sha256(str(tmpKey % cryptoMod).encode())
+    # generate the base using the temporary key and the cipher base from the file (see Utilities:getModFromCipher)
+    base = getModFromCipher(tmpKey, cipherBase, rest)
+
+    # create the sha256 hash from the temporary key on the base recovered and create the crypto box from it
+    key = sha256(str(tmpKey % base).encode())
     box = secret.SecretBox(key.digest())
 
+    # open the output file (decrypted)
     writeStream = File(destination).openStream("wb")
 
+    # read every 1024 bytes of the file and decrypt it using the box
     try:
         finished = False
         while not finished:

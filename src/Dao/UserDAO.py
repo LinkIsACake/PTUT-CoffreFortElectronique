@@ -1,4 +1,4 @@
-from src.DAO import DAO
+from DAO import DAO
 import sqlite3
 
 class UserDAO(DAO):
@@ -27,7 +27,7 @@ class UserDAO(DAO):
             print("An error has occured:", e.args[0])
             return False
 
-    def checkCredentials(self,username,password):
+    def checkCredentials(self, username, password):
         self.database.query("SELECT * FROM Users WHERE username = ? AND password = ?", [username, password])
         result = self.database.getFirstResult()
         return (result != None)

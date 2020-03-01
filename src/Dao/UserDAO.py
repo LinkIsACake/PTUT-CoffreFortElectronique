@@ -1,4 +1,4 @@
-from DAO import DAO
+from .DAO import DAO
 import sqlite3
 
 class UserDAO(DAO):

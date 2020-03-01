@@ -52,7 +52,7 @@
     <string>Connection</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="inscription_button">
+  <widget class="QPushButton" name="register_button">
    <property name="geometry">
     <rect>
      <x>90</x>

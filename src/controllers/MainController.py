@@ -1,23 +1,27 @@
-from kivy.lang import Builder
-from kivy.logger import Logger
 import sys
+
 
 sys.path.append('..')
 
-from views.NavigationDrawer import NavigationDrawer
-from views.ScreenManager import ScreenManager
+from views.Home import Home
+from views.Login import Login
+from Dao.Dao import Dao
 
-NAVIGATIONDRAWER = './views/NavigationDrawer/NavigationDrawer.kv'
-SCREENMANAGER = './views/ScreenManager/ScreenManager.kv'
 
 class MainController:
-    navigationDrawer: NavigationDrawer
 
+    connected : bool
+    observers : []
+    dao :
     def __init__(self):
-        Logger.info("MainController Created")
-        #self.navbar = NavigationDrawer.NavigationDrawer()
-        self.screenManager = ScreenManager.ScreenManagerApp(self)
+        self.connected = False
+        self.observers = [Home.Home(self),Login.Login(self)]
 
-    def on_click(self,view):
-        Logger.info("Controller Click")
+    def notify(self):
+        for observer in self.observers:
+            observer.notify()
+
+    def login(self, username, password):
+        self.connected = True
+        self.notify()
 

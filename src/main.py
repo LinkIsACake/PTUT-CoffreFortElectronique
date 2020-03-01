@@ -1,7 +1,10 @@
 import logging
+import sys
 
+from PyQt5.QtWidgets import QApplication
 from controllers import MainController
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
+    app = QApplication(sys.argv)
     mainController = MainController.MainController()
+    sys.exit(app.exec_())

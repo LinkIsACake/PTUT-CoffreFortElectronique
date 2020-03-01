@@ -1,6 +1,2 @@
 pynacl
-Kivy>=1.11.1
-kivy.deps.sdl2
-kivy.deps.glew
-kivymd
-PyInstaller==3.6
+PyQt5>=5.14.1

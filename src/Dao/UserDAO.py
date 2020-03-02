@@ -1,9 +1,10 @@
 from .DAO import DAO
 import sqlite3
-
+import os
 
 class UserDAO(DAO):
     database = None
+    databaseCreationScript = 'CREATE TABLE "Users" ("username"	TEXT NOT NULL, "password" TEXT NOT NULL, PRIMARY KEY("username"));'
 
     def __init__(self, path: str = "../ressource/users.sqlite"):
         DAO.__init__(self, path)

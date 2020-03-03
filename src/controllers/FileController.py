@@ -6,14 +6,17 @@ from EncryptCore import FileEncryptor
 from EncryptCore.beforeImplemented import *
 
 import logging
+from models.File import File
+from models.User import User
+
 
 class FileController:
     destinationPath: str
-    logger : Logging
+    logger: logging
 
     def __init__(self, path:str):
         self.destinationPath = path
-        self.logger = Logging.getLogger("FileController")
+        self.logger = logging.getLogger("FileController")
 
 
     def saveFile(self, path: str, utilisateur: User):

@@ -46,3 +46,6 @@ class Home(QWidget):
 
         self.setLayout(self.layout)
         self.show()
+
+    def init_file_manager(self):
+        pass

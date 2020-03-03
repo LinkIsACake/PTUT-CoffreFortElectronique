@@ -1,5 +1,5 @@
 import sys
-
+import os
 sys.path.append('..')
 
 from dotenv import load_dotenv
@@ -40,8 +40,8 @@ class MainController:
         self.notify()
 
     def saveFile(self, path):
-        result = self.fileController.saveFile(path,destinationPath, self.user)
+        result = self.fileController.saveFile(path, self.destinationPath)
         return result
 
     def getFile(self, path):
-        result = self.fileController.getFile(path,destinationPath, self.user)
+        result = self.fileController.getFile(path,self.destinationPath)

@@ -1,3 +1,4 @@
+import os
 import sys
 
 sys.path.append('..')
@@ -14,21 +15,21 @@ class FileController:
     destinationPath: str
     logger: logging
 
-    def __init__(self, path:str):
+    def __init__(self, path: str):
         self.destinationPath = path
         self.logger = logging.getLogger("FileController")
 
-
     def saveFile(self, path: str, utilisateur: User):
         file = File(path)
-        
+
         try:
-            FileEncryptor.encrypt(self.destinationPath, file, utilisateur)
+            self.logger.debug("Save " + str(path) + "to" + self.destinationPath)
+
+            FileEncryptor.encrypt(self.destinationPath + os.path.basename(path), file, utilisateur)
             return True
         except Exception as saveFileError:
             self.logger.error(saveFileError)
             return False
-
 
     def getFile(self, path: str, utilisateur: User):
         file = File(path)
@@ -38,12 +39,12 @@ class FileController:
             return True
         except Exception as saveFileError:
             self.logger.error(saveFileError)
-            return False        
+            return False
 
 
 if __name__ == '__main__':
     print("Test fichier et utilisateur")
 
-    #dec = File("../Files/test.txt")
+    # dec = File("../Files/test.txt")
     controller = FileController("../Files")
-    controller.saveFile("../Files/test.txt",User())
+    controller.saveFile("../Files/test.txt", User())

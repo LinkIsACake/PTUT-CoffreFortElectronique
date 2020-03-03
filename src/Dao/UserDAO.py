@@ -29,8 +29,6 @@ class UserDAO(DAO):
         self.logger.debug("createUser")
         try:
             hash_password = pwhash.scrypt.str(password.encode('utf8'))
-            print(type(hash_password))
-
 
             self.database.query("INSERT INTO Users VALUES (?,?)", [username, hash_password])
             self.database.connection.commit()
@@ -51,21 +49,16 @@ class UserDAO(DAO):
         if result:
             self.logger.debug("user found, check checkCredentials")
 
-            verify = False
             try:
                 hash_password = result[1]
-                verify = pwhash.verify(hash_password, password.encode())
+                pwhash.verify(hash_password, password.encode())
             except exceptions.InvalidkeyError as err:
                 return False
             except Exception as pwhashError:
                 self.logger.error(pwhashError)
                 return False
 
-            if verify:
-                self.logger.debug("password is verify")
-                return True
-            else:
-                self.logger.debug("password is not verify")
-                return False
+            self.logger.debug("password is verify")
+            return True
         else:
             return False

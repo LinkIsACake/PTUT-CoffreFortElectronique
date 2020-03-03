@@ -6,12 +6,12 @@ actor Utilisateur
 rectangle "Application Client" {
   usecase "Gerer ces Fichiers" as manageFiles
   usecase "S'authentifier" as login
-  usecase "Mettre a jour ces informations personnels" as updateAccount
+  'usecase "Mettre a jour ces informations personnels" as updateAccount
 
   Utilisateur -right-> (manageFiles)
-  Utilisateur -right-> (updateAccount)
+  'Utilisateur -right-> (updateAccount)
   manageFiles -down-> (login) : include
-  updateAccount -right-> (login) : include
+  'updateAccount -right-> (login) : include
 
 }
 

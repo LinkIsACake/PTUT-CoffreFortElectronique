@@ -58,12 +58,12 @@ class Home(QWidget, Logger):
     def notify(self, **kwargs):
         if kwargs.get("connected", False) and kwargs.get("username", False):
             username = kwargs.get("username", "")
-            self.label.setText("Bonjour " + username + "\n Deposer votre fichier à proteger ici !")
+            self.label.setText("Bonjour " + username + "\n Deposez votre fichier à protéger ici !")
         else:
-            self.label.setText("Connecter vous")
+            self.label.setText("Connectez vous")
 
         if kwargs.get("sending_file_status", False):
-            QMessageBox.about(self ,"Succes", "Envoi des fichiers reussits ! ")
+            QMessageBox.about(self ,"Succes", "Envoi des fichiers reussi ! ")
 
 
     def initUI(self):
@@ -100,4 +100,3 @@ class Home(QWidget, Logger):
             files_to_send.append(self.file_list.item(index).text())
 
         self.controller.send_files(files_to_send)
-

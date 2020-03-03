@@ -8,15 +8,23 @@ class UserDAO(DAO):
     database = None
     databaseCreationScript = 'CREATE TABLE "Users" ("username"	TEXT NOT NULL, "password" TEXT NOT NULL, PRIMARY KEY("username"));'
 
+	# Initialisation du DAO et création de la table users si elle n'existe pas
     def __init__(self, path: str = "../ressource/users.sqlite"):
         DAO.__init__(self, path)
         if not self.init:
             self.database.query(self.databaseCreationScript, [])
 
+	# Fermeture de la connexion
     def close(self):
         DAO.close(self)
 
     def fetchUser(self, username: str):
+		"""
+		Rechercher un utilisateur dans la table users à partir de son nom
+		d'utilisateur et le retourner
+
+		:param username: nom d'utilisateur à rechercher dans la base
+		"""
         self.logger.debug("fetchUser")
         self.database.query("SELECT * FROM Users WHERE username = ?", [username])
         result = self.database.getFirstResult()
@@ -26,6 +34,16 @@ class UserDAO(DAO):
             return False
 
     def createUser(self, username: str, password: str) -> bool:
+		"""
+		Insertion d'un nouvel utilisateur dans la table users sans oublier de
+		hasher le mot-de-passe.
+
+		:param username: nom d'utilisateur à insérer
+		:param password: mot-de-passe à hasher puis insérer dans la table
+
+		:return Retourne True si aucune erreur n'a été détecté
+		 		Retourne False si l'insertion échoue.
+		"""
         self.logger.debug("createUser")
         try:
             hash_password = pwhash.scrypt.str(password.encode('utf8'))
@@ -38,8 +56,14 @@ class UserDAO(DAO):
             return False
 
     def checkCredentials(self, username: str, password: str) -> bool:
-        self.logger.debug("checkCredentials")
+		"""
+		Vérifie que le couple username/password correspond bien à un utilisateur
+		présent dans la table users.
 
+		:param utilisateur: nom d'utilisateur à vérifier
+		:param password: mod-de-passe à vérifier
+		"""
+        self.logger.debug("checkCredentials")
         try:
             self.database.query("SELECT * FROM Users WHERE username = ?", (username,))
         except Exception as err:
@@ -48,7 +72,6 @@ class UserDAO(DAO):
         result = self.database.getFirstResult()
         if result:
             self.logger.debug("user found, check checkCredentials")
-
             try:
                 hash_password = result[1]
                 pwhash.verify(hash_password, password.encode())

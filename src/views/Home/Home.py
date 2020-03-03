@@ -29,9 +29,11 @@ class Home(QWidget):
         self.initUI()
         self.notify()
 
-    def notify(self):
-        if self.controller.connected:
-            self.label.setText("Vous êtes connecté !")
+
+    def notify(self,**kwargs):
+        if kwargs.get("connected",False) and kwargs.get("username", False):
+            username = kwargs.get("username", "")
+            self.label.setText("Bonjour " + username)
         else:
             self.label.setText("Veuillez vous connecter")
 

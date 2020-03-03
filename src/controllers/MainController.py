@@ -1,10 +1,10 @@
 import sys
 import os
 
-
 sys.path.append('..')
 
 from dotenv import load_dotenv
+
 load_dotenv()
 
 from views.Home import Home
@@ -17,14 +17,15 @@ from .FileController import FileController
 
 from Utils.Logger import Logger
 
+
 class MainController(Logger):
     connected: bool
-    loginController : LoginController
-    fileController : FileController
+    loginController: LoginController
+    fileController: FileController
 
-    session : User
+    session: User
 
-    destinationPath = os.getenv("FILE_DESTINATION")
+    destinationPath = "../ressource/"
 
     observers: []
 
@@ -32,7 +33,7 @@ class MainController(Logger):
         Logger.__init__(self)
 
         self.loginController = LoginController()
-        self.fileController = FileController("../ressource/")
+        self.fileController = FileController(self.destinationPath)
         self.connected = False
         self.session = None
         self.observers = [Login.Login(self)]
@@ -69,19 +70,32 @@ class MainController(Logger):
         :param password:
         """
 
+        self.logger.debug("register")
+
+        wrong_input = False
         result = False
+        path_exist = False
 
-        if username and password:
-            result = self.loginController.register(username, password)
+        if username != "" and password != "":
+            if not os.path.isdir(self.destinationPath + username):
+                os.mkdir(self.destinationPath + username)
+                result = self.loginController.register(username, password)
+            else:
+                path_exist = True
+        else:
+            wrong_input = True
 
-        self.notify(register=result)
+        self.notify(register=result, path_exist=path_exist, wrong_input=wrong_input)
 
     def saveFile(self, path):
+        self.logger.debug("saveFile")
+
         """
         Send a order of encryption for a file
 
         :param path: path of the file
         """
+        self.logger.debug("saveFile")
 
         result = False
         if path:
@@ -89,14 +103,18 @@ class MainController(Logger):
         return result
 
     def getFile(self, path):
-        result = self.fileController.getFile(path,self.destinationPath)
+        self.logger.debug("getFile")
 
-    def send_files(self, files_to_send : []):
+        result = self.fileController.getFile(path, self.destinationPath)
+
+    def send_files(self, files_to_send: []):
         """
         Send list of file to encrypt
 
         :param files_to_send: list of path of file to encrypt
         """
+        self.logger.debug("send_files")
+
         self.logger.debug(files_to_send)
         for file in files_to_send:
             self.saveFile(file)

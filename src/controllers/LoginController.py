@@ -19,4 +19,5 @@ class LoginController(Logger):
 
     def register(self, username: str, password: str):
         self.logger.debug("register " + username)
+
         return self.dao.createUser(username, password)

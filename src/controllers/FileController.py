@@ -24,8 +24,8 @@ class FileController:
 
         try:
             self.logger.debug("Save " + str(path) + "to" + self.destinationPath)
-
-            FileEncryptor.encrypt(self.destinationPath + os.path.basename(path), file, utilisateur)
+            destination = self.destinationPath + utilisateur.username + '/'
+            FileEncryptor.encrypt(destination + os.path.basename(path), file, utilisateur)
             return True
         except Exception as saveFileError:
             self.logger.error(saveFileError)

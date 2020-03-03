@@ -13,30 +13,27 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPlainTextEdit" name="password_input">
-   <property name="geometry">
-    <rect>
-     <x>160</x>
-     <y>140</y>
-     <width>101</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="plainText">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QPlainTextEdit" name="username_input">
+  <widget class="QLineEdit" name="username_input">
    <property name="geometry">
     <rect>
      <x>160</x>
      <y>100</y>
-     <width>101</width>
-     <height>31</height>
+     <width>113</width>
+     <height>26</height>
     </rect>
    </property>
-   <property name="plainText">
-    <string/>
+  </widget>
+  <widget class="QLineEdit" name="password_input">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>140</y>
+     <width>113</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
    </property>
   </widget>
   <widget class="QPushButton" name="login_button">

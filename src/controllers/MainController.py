@@ -2,6 +2,9 @@ import sys
 
 sys.path.append('..')
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from views.Home import Home
 from views.Login import Login
 
@@ -13,7 +16,7 @@ class MainController:
     loginController : LoginController
     fileController : FileController
 
-    destinationPath = "../Files"
+    destinationPath = os.getenv("FILE_DESTINATION")
 
     observers: []
 

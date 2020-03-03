@@ -40,4 +40,6 @@ class Login(QtWidgets.QDialog):
 
         if kwargs.get("wrong_credential",False):
             QMessageBox.about(self ,"Erreur", "Mot de passe ou Nom d'utilisateur incorrect")
-# etc
+
+        if kwargs.get("register", False):
+            QMessageBox.about(self ,"Inscription", "Inscription reussit")

@@ -40,18 +40,16 @@ class MainController:
         wrong_credential = False
         if self.loginController.login(username, password):
             self.connected = True
-
             self.session = User(username, password)
-
             self.observers.append(Home.Home(self))
         else:
             wrong_credential = True
 
-        self.notify(connected=self.connected, wrong_credential=wrong_credential,username=self.session.username)
+        self.notify(connected=self.connected, wrong_credential=wrong_credential, username=username)
 
     def register(self, username, password):
-        self.loginController.register(username, password)
-        self.notify()
+        result = self.loginController.register(username, password)
+        self.notify(register=result)
 
     def saveFile(self, path):
         result = self.fileController.saveFile(path, self.destinationPath)

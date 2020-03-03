@@ -61,4 +61,5 @@ class UserDAO(DAO):
             self.logger.debug("password is verify")
             return True
         else:
+            self.logger.debug("user not found")
             return False

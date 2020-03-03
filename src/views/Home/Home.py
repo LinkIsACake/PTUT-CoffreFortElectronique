@@ -1,5 +1,7 @@
 import sys
 
+import PyQt5
+
 sys.path.append('..')
 
 from src.controllers.MainController import MainController
@@ -10,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIcon, QDropEvent
 from PyQt5.QtWidgets import QAction, qApp, QPushButton, QVBoxLayout, QLabel, QDesktopWidget, QSizePolicy, QGridLayout, \
-    QWidget, QListWidget
+    QWidget, QListWidget, QMessageBox
 
 from views.Login import Login
 
@@ -40,10 +42,10 @@ class Home(QWidget, Logger):
         self.notify()
 
     def dropEvent(self, event):
-        files = event.mimeData().urls()
+        files = [file.toLocalFile() for file in event.mimeData().urls()]
         for file in files:
             try:
-                self.file_list.addItem(file.toString())
+                self.file_list.addItem(file)
             except Exception as err:
                 print(err)
 
@@ -60,6 +62,10 @@ class Home(QWidget, Logger):
         else:
             self.label.setText("Connecter vous")
 
+        if kwargs.get("sending_file_status", False):
+            QMessageBox.about(self ,"Succes", "Envoi des fichiers reussits ! ")
+
+
     def initUI(self):
 
         self.label = QLabel("", self)
@@ -71,6 +77,7 @@ class Home(QWidget, Logger):
         self.button_delete.pressed.connect(self.delete_file)
 
         self.button_send = QPushButton("envoyer")
+        self.button_send.pressed.connect(self.send_files)
 
         self.layout = QGridLayout()
         self.layout.addWidget(self.label)
@@ -85,5 +92,12 @@ class Home(QWidget, Logger):
     def delete_file(self):
         self.file_list.takeItem(self.file_list.currentRow())
 
-    def update_file_manager(self):
-        pass
+    def send_files(self):
+
+        files_to_send = []
+
+        for index in range(self.file_list.count()):
+            files_to_send.append(self.file_list.item(index).text())
+
+        self.controller.send_files(files_to_send)
+

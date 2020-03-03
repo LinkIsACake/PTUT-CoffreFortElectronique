@@ -15,7 +15,9 @@ from models.User import User
 from .LoginController import LoginController
 from .FileController import FileController
 
-class MainController:
+from Utils.Logger import Logger
+
+class MainController(Logger):
     connected: bool
     loginController : LoginController
     fileController : FileController
@@ -27,7 +29,10 @@ class MainController:
     observers: []
 
     def __init__(self):
+        Logger.__init__(self)
+
         self.loginController = LoginController()
+        self.fileController = FileController("../ressource/")
         self.connected = False
         self.session = None
         self.observers = [Login.Login(self)]
@@ -52,8 +57,14 @@ class MainController:
         self.notify(register=result)
 
     def saveFile(self, path):
-        result = self.fileController.saveFile(path, self.destinationPath)
+        result = self.fileController.saveFile(path, self.session)
         return result
 
     def getFile(self, path):
         result = self.fileController.getFile(path,self.destinationPath)
+
+    def send_files(self, files_to_send : []):
+        self.logger.debug(files_to_send)
+        for file in files_to_send:
+            self.saveFile(file)
+        self.notify(sending_file_status=True)

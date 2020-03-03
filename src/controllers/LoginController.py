@@ -14,9 +14,9 @@ class LoginController(Logger):
         self.dao = UserDAO()
 
     def login(self, username: str, password: str):
-        self.logger.debug("login")
+        self.logger.debug("login " + username)
         return self.dao.checkCredentials(username, password)
 
     def register(self, username: str, password: str):
-        self.logger.debug("register")
+        self.logger.debug("register " + username)
         self.dao.createUser(username, password)

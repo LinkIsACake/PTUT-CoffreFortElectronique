@@ -38,32 +38,65 @@ class MainController(Logger):
         self.observers = [Login.Login(self)]
 
     def notify(self, **kwargs):
+        """
+        Notify all observer
+
+        :param kwargs: arguments to notify
+        """
         for observer in self.observers:
             observer.notify(**kwargs)
 
     def login(self, username, password):
         wrong_credential = False
-        if self.loginController.login(username, password):
-            self.connected = True
-            self.session = User(username, password)
-            self.observers.append(Home.Home(self))
+
+        if username and password:
+            if self.loginController.login(username, password):
+                self.connected = True
+                self.session = User(username, password)
+                self.observers.append(Home.Home(self))
+            else:
+                wrong_credential = True
         else:
             wrong_credential = True
 
         self.notify(connected=self.connected, wrong_credential=wrong_credential, username=username)
 
     def register(self, username, password):
-        result = self.loginController.register(username, password)
+        """
+        Register new user
+
+        :param username:
+        :param password:
+        """
+
+        result = False
+
+        if username and password:
+            result = self.loginController.register(username, password)
+
         self.notify(register=result)
 
     def saveFile(self, path):
-        result = self.fileController.saveFile(path, self.session)
+        """
+        Send a order of encryption for a file
+
+        :param path: path of the file
+        """
+
+        result = False
+        if path:
+            result = self.fileController.saveFile(path, self.session)
         return result
 
     def getFile(self, path):
         result = self.fileController.getFile(path,self.destinationPath)
 
     def send_files(self, files_to_send : []):
+        """
+        Send list of file to encrypt
+
+        :param files_to_send: list of path of file to encrypt
+        """
         self.logger.debug(files_to_send)
         for file in files_to_send:
             self.saveFile(file)

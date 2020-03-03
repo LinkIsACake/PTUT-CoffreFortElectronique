@@ -41,10 +41,3 @@ class FileController:
             self.logger.error(saveFileError)
             return False
 
-
-if __name__ == '__main__':
-    print("Test fichier et utilisateur")
-
-    # dec = File("../Files/test.txt")
-    controller = FileController("../Files")
-    controller.saveFile("../Files/test.txt", User())

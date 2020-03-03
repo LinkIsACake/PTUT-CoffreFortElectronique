@@ -30,8 +30,9 @@ class Home(QWidget):
         self.notify()
 
     def notify(self,**kwargs):
-        if kwargs.get("connected",False):
-            self.label.setText("Vous etez connectez")
+        if kwargs.get("connected",False) and kwargs.get("username", False):
+            username = kwargs.get("username", "")
+            self.label.setText("Bonjour " + username)
         else:
             self.label.setText("Connecter vous")
 

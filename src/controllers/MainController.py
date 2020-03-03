@@ -24,7 +24,7 @@ class MainController:
         self.loginController = LoginController()
         self.connected = False
 
-        self.observers = [Home.Home(self), Login.Login(self)]
+        self.observers = [Login.Login(self)]
 
     def notify(self, **kwargs):
         for observer in self.observers:
@@ -34,10 +34,11 @@ class MainController:
         wrong_credential = False
         if self.loginController.login(username, password):
             self.connected = True
+            self.observers.append(Home.Home(self))
         else:
             wrong_credential = True
 
-        self.notify(connected=self.connected,wrong_credential=wrong_credential)
+        self.notify(connected=self.connected, wrong_credential=wrong_credential)
 
     def register(self, username, password):
         self.loginController.register(username, password)

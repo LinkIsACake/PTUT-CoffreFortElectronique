@@ -4,7 +4,7 @@ actor Utilisateur
 
 
 rectangle "Application Client" {
-  usecase "Gerer ces Fichiers" as manageFiles
+  usecase "Gerer ses Fichiers" as manageFiles
   usecase "S'authentifier" as login
   'usecase "Mettre a jour ces informations personnels" as updateAccount
 

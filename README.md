@@ -4,23 +4,26 @@ L’objectif principal de ce projet est la création d’un coffre-fort électro
 
 ## USER APPLICATION GUIDE
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+```
+git clone https://github.com/LinkIsACake/PTUT-CoffreFortElectronique.git
+```
 
 ### Prerequisites
 
-npm
+python3
 
 ### Installing
 
 ```
-cd user-app
-npm install
-npm start
+./install.sh
 ```
 
 ## Running the tests
 
-....
+```
+source venv/bin/activate
+pytest 
+```
 
 ## Deployment
 
@@ -28,17 +31,10 @@ npm start
 
 ## Built With
 
-* [Electron](https://electronjs.org/) - The web framework used
-* [https://www.npmjs.com/](https://maven.apache.org/) - Dependency Management
-* [NODEJS](https://nodejs.org/en/) - The web framework used
-
-## Contributing
-
-...
-
-## Versioning
-
-... 
+* [Python](https://www.python.org/) - Language used
+* [pyNacl](https://github.com/pyca/pynacl/) - Cryptographie librarie
+* [Qt](https://www.qt.io/) - Graphical Librarie
+* [PyInstaller](http://pyinstaller.python-hosting.com/) - Deployement librairie
 
 ## Authors
 

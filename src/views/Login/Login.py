@@ -1,6 +1,6 @@
 import sys
 
-from PyQt5.QtWidgets import QPlainTextEdit, QPushButton, QLineEdit
+from PyQt5.QtWidgets import QPlainTextEdit, QPushButton, QLineEdit, QMessageBox
 
 from src.controllers import MainController
 
@@ -16,7 +16,6 @@ class Login(QtWidgets.QDialog):
 
     login_button: QPushButton
     register: QPushButton
-
     password_input: QLineEdit
     username_input: QLineEdit
 
@@ -28,12 +27,17 @@ class Login(QtWidgets.QDialog):
 
         self.login_button.pressed.connect(self.login)
         self.register_button.pressed.connect(self.register)
+
     def register(self):
         self.controller.register(self.username_input.text(), self.password_input.text())
 
     def login(self):
         self.controller.login(self.username_input.text(), self.password_input.text())
 
-    def notify(self):
-        pass
+    def notify(self, **kwargs):
+        if kwargs.get("connected", False):
+            self.close()
+
+        if kwargs.get("wrong_credential",False):
+            QMessageBox.about(self ,"Erreur", "Mot de passe ou Nom d'utilisateur incorrect")
 # etc

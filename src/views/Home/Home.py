@@ -29,7 +29,7 @@ class Home(QWidget):
         self.initUI()
         self.notify()
 
-    def notify(self):
+    def notify(self, **kwargs):
         if self.controller.connected:
             self.label.setText("Vous etez connectez")
         else:

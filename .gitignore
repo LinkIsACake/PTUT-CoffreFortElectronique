@@ -145,3 +145,5 @@ dmypy.json
 
 # EncryptCore developpement
 src/EncryptCore/tests/*
+
+ressource/*

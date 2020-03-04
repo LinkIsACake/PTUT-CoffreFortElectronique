@@ -2,9 +2,11 @@ import sys
 
 from PyQt5.QtWidgets import QPlainTextEdit, QPushButton, QLineEdit, QMessageBox
 
-from src.controllers import MainController
 
 sys.path.append('..')
+
+from src.controllers import MainController
+
 
 from PyQt5 import uic
 from PyQt5.uic.Compiler.qtproxies import QtGui
@@ -22,7 +24,7 @@ class Login(QtWidgets.QDialog):
     def __init__(self, controller, parent=None):
         super().__init__(parent)
         self.controller = controller
-        dialog = uic.loadUi("views/Login/Login.ui", self)
+        dialog = uic.loadUi("views/Login.ui", self)
         dialog.show()
 
         self.login_button.pressed.connect(self.login)

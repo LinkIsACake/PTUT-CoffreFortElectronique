@@ -1,23 +1,16 @@
 import sys
 
-import PyQt5
-
 sys.path.append('..')
 
-from src.controllers.MainController import MainController
+from src.controllers import MainController
 
-import sys
-import json
-from PyQt5 import QtCore, QtGui, QtWidgets, uic
+
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QDropEvent
 from PyQt5.QtWidgets import QAction, qApp, QPushButton, QVBoxLayout, QLabel, QDesktopWidget, QSizePolicy, QGridLayout, \
     QWidget, QListWidget, QMessageBox
 
-from views.Login import Login
-
-from models.UserSession import UserSession
 from Utils.Logger import Logger
+
 
 
 class FileListWidget(QListWidget):
@@ -32,10 +25,8 @@ class FileListWidget(QListWidget):
         self.takeItem(self.currentRow())
 
 
-class Home(QWidget, Logger):
+class SendFileManager(QWidget, Logger):
     controller: MainController
-
-    session_user : UserSession
 
     label: QLabel
     label_path: QLabel
@@ -72,18 +63,12 @@ class Home(QWidget, Logger):
             event.ignore()
 
     def notify(self, **kwargs):
-        if kwargs.get("connected", False) and kwargs.get("username", False):
-            self.session_user = kwargs.get("session_user", None)
-            self.label.setText("Bonjour " + self.session_user.username + "\n Deposez votre fichier à protéger ici !")
-        else:
-            self.label.setText("Connectez vous")
-
         if kwargs.get("sending_file_status", False):
             QMessageBox.about(self, "Succes", "Envoi des fichiers reussi ! ")
 
     def initUI(self):
 
-        self.label = QLabel("", self)
+        self.label = QLabel("Proteger de nouveaux fichiers", self)
         self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.label.setAlignment(Qt.AlignCenter)
 

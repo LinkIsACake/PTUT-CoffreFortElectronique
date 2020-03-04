@@ -7,8 +7,9 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from views.Home import Home
-from views.Login import Login
+from views import SendFileManager
+from views import Login
+from views import Home
 
 from models.User import User
 from models.UserSession import UserSession
@@ -24,7 +25,7 @@ class MainController(Logger):
     loginController: LoginController
     fileController: FileController
 
-    session: User
+    session: UserSession
 
     destinationPath = "../ressource/"
 
@@ -36,8 +37,8 @@ class MainController(Logger):
         self.loginController = LoginController()
         self.fileController = FileController(self.destinationPath)
         self.connected = False
-        self.session = None
         self.observers = [Login.Login(self)]
+        self.user = None
 
     def notify(self, **kwargs):
         """
@@ -48,24 +49,24 @@ class MainController(Logger):
         for observer in self.observers:
             observer.notify(**kwargs)
 
-    def create_home(self,username : str,password : str):
+    def create_home(self, username: str):
         self.logger.debug("login_ok, create Home")
         self.connected = True
-        self.session = User(username, password)
         self.observers.pop()
+        self.session = UserSession(username, self.destinationPath + username)
         self.observers.append(Home.Home(self))
-        return UserSession(username, self.destinationPath + username)
+
+        return True
 
     def login(self, username, password):
         self.logger.debug("login")
 
         wrong_credential = False
 
-        session_user = None
-
         if username != "" and password != "":
             if self.loginController.login(username, password):
-                session_user = self.create_home(username, password)
+                self.user = User(username, password)
+                self.create_home(username)
             else:
                 wrong_credential = True
         else:
@@ -73,8 +74,7 @@ class MainController(Logger):
 
         self.notify(connected=self.connected,
                     wrong_credential=wrong_credential,
-                    username=username,
-                    session_user=session_user)
+                    username=username)
 
     def register(self, username, password):
         """
@@ -116,13 +116,13 @@ class MainController(Logger):
 
         result = False
         if path:
-            result = self.fileController.saveFile(path, self.session)
+            result = self.fileController.saveFile(path, self.user)
         return result
 
     def getFile(self, path):
         self.logger.debug("getFile")
 
-        result = self.fileController.getFile(path, self.session)
+        result = self.fileController.getFile(path, self.user)
 
     def send_files(self, files_to_send: []):
         """
@@ -136,3 +136,13 @@ class MainController(Logger):
         for file in files_to_send:
             self.saveFile(file)
         self.notify(sending_file_status=True)
+
+    def get_files(self) -> []:
+
+        files_list = []
+
+        for root, dirs, files in os.walk(self.session.path):
+            for file in files:
+                files_list.append(file)
+
+        return files_list

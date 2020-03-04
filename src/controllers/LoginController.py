@@ -15,9 +15,16 @@ class LoginController(Logger):
 
     def login(self, username: str, password: str):
         self.logger.debug("login " + username)
-        return self.dao.checkCredentials(username, password)
+        result = False
+        if self.user_exist(username):
+            result = self.dao.checkCredentials(username, password)
+        return result
+
 
     def register(self, username: str, password: str):
         self.logger.debug("register " + username)
-
         return self.dao.createUser(username, password)
+
+    def user_exist(self, username: str):
+        self.logger.debug("user_exist ")
+        return self.dao.userExist(username)

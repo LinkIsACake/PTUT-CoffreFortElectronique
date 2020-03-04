@@ -11,6 +11,7 @@ from views.Home import Home
 from views.Login import Login
 
 from models.User import User
+from models.UserSession import UserSession
 
 from .LoginController import LoginController
 from .FileController import FileController
@@ -47,20 +48,33 @@ class MainController(Logger):
         for observer in self.observers:
             observer.notify(**kwargs)
 
+    def create_home(self,username : str,password : str):
+        self.logger.debug("login_ok, create Home")
+        self.connected = True
+        self.session = User(username, password)
+        self.observers.pop()
+        self.observers.append(Home.Home(self))
+        return UserSession(username, self.destinationPath + username)
+
     def login(self, username, password):
+        self.logger.debug("login")
+
         wrong_credential = False
 
-        if username and password:
+        session_user = None
+
+        if username != "" and password != "":
             if self.loginController.login(username, password):
-                self.connected = True
-                self.session = User(username, password)
-                self.observers.append(Home.Home(self))
+                session_user = self.create_home(username, password)
             else:
                 wrong_credential = True
         else:
             wrong_credential = True
 
-        self.notify(connected=self.connected, wrong_credential=wrong_credential, username=username)
+        self.notify(connected=self.connected,
+                    wrong_credential=wrong_credential,
+                    username=username,
+                    session_user=session_user)
 
     def register(self, username, password):
         """
@@ -77,11 +91,14 @@ class MainController(Logger):
         path_exist = False
 
         if username != "" and password != "":
-            if not os.path.isdir(self.destinationPath + username):
-                os.mkdir(self.destinationPath + username)
-                result = self.loginController.register(username, password)
+            if self.loginController.user_exist(username):
+                result = False
             else:
-                path_exist = True
+                if not os.path.isdir(self.destinationPath + username):
+                    os.mkdir(self.destinationPath + username)
+                    result = self.loginController.register(username, password)
+                else:
+                    path_exist = True
         else:
             wrong_input = True
 
@@ -105,7 +122,7 @@ class MainController(Logger):
     def getFile(self, path):
         self.logger.debug("getFile")
 
-        result = self.fileController.getFile(path, self.destinationPath)
+        result = self.fileController.getFile(path, self.session)
 
     def send_files(self, files_to_send: []):
         """

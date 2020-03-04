@@ -18,6 +18,21 @@ class UserDAO(DAO):
     def close(self):
         DAO.close(self)
 
+    def userExist(self,username:str):
+        """
+        Rechercher un utilisateur dans la table users à partir de son nom
+        d'utilisateur et retour vrai si le trouve, faux sinon
+
+        :param username: nom d'utilisateur à rechercher dans la base
+        """
+        self.logger.debug("fetchUser")
+        self.database.query("SELECT * FROM Users WHERE username = ?", [username])
+        result = self.database.getFirstResult()
+        if result:
+            return True
+        else:
+            return False
+
     def fetchUser(self, username: str):
         """
         Rechercher un utilisateur dans la table users à partir de son nom

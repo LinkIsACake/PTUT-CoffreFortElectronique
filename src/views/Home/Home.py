@@ -16,16 +16,32 @@ from PyQt5.QtWidgets import QAction, qApp, QPushButton, QVBoxLayout, QLabel, QDe
 
 from views.Login import Login
 
+from models.UserSession import UserSession
 from Utils.Logger import Logger
+
+
+class FileListWidget(QListWidget):
+
+    def __init__(self,parent=None):
+        super(FileListWidget, self).__init__(parent)
+
+    def add_file(self, file: str):
+        self.addItem(file)
+
+    def remove_file(self):
+        self.takeItem(self.currentRow())
 
 
 class Home(QWidget, Logger):
     controller: MainController
+
+    session_user : UserSession
+
     label: QLabel
     label_path: QLabel
 
     layout: QGridLayout
-    file_list: QListWidget
+    file_list: FileListWidget
 
     button_send: QPushButton
     button_delete: QPushButton
@@ -45,7 +61,7 @@ class Home(QWidget, Logger):
         files = [file.toLocalFile() for file in event.mimeData().urls()]
         for file in files:
             try:
-                self.file_list.addItem(file)
+                self.file_list.add_file(file)
             except Exception as err:
                 print(err)
 
@@ -57,14 +73,13 @@ class Home(QWidget, Logger):
 
     def notify(self, **kwargs):
         if kwargs.get("connected", False) and kwargs.get("username", False):
-            username = kwargs.get("username", "")
-            self.label.setText("Bonjour " + username + "\n Deposez votre fichier à protéger ici !")
+            self.session_user = kwargs.get("session_user", None)
+            self.label.setText("Bonjour " + self.session_user.username + "\n Deposez votre fichier à protéger ici !")
         else:
             self.label.setText("Connectez vous")
 
         if kwargs.get("sending_file_status", False):
-            QMessageBox.about(self ,"Succes", "Envoi des fichiers reussi ! ")
-
+            QMessageBox.about(self, "Succes", "Envoi des fichiers reussi ! ")
 
     def initUI(self):
 
@@ -72,9 +87,9 @@ class Home(QWidget, Logger):
         self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.label.setAlignment(Qt.AlignCenter)
 
-        self.file_list = QListWidget(self)
+        self.file_list = FileListWidget(self)
         self.button_delete = QPushButton("supprimer")
-        self.button_delete.pressed.connect(self.delete_file)
+        self.button_delete.pressed.connect(self.file_list.remove_file)
 
         self.button_send = QPushButton("envoyer")
         self.button_send.pressed.connect(self.send_files)
@@ -88,9 +103,6 @@ class Home(QWidget, Logger):
 
         self.setLayout(self.layout)
         self.show()
-
-    def delete_file(self):
-        self.file_list.takeItem(self.file_list.currentRow())
 
     def send_files(self):
 

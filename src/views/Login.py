@@ -40,16 +40,16 @@ class Login(QtWidgets.QDialog):
         self.close()
 
     def register_ok(self):
-        QMessageBox.about(self, "Inscription", "Inscription reussit")
+        QMessageBox.about(self, "Inscription", "Inscription réussie")
 
     def wrong_credential(self):
-        QMessageBox.about(self, "Erreur", "Mot de passe ou Nom d'utilisateur incorrect")
+        QMessageBox.about(self, "Erreur", "Mot-de-passe ou Nom d'utilisateur incorrect")
 
     def path_exist(self):
-        QMessageBox.about(self, "Erreur","Un dossier correspond déjâ à se nom utilisateur mais il n'est pas enregisté, supprimer le dossier")
+        QMessageBox.about(self, "Erreur","Un dossier correspond déjâ à ce nom utilisateur mais il n'est pas enregistré, supprimez le dossier")
 
     def wrong_input(self):
-        QMessageBox.about(self, "Erreur", "Nom d'utilisateur ou mot de passe incorrect")
+        QMessageBox.about(self, "Erreur", "Mot-de-passe ou Nom d'utilisateur incorrect")
 
     def notify(self, **kwargs):
         if kwargs.get("connected", False):

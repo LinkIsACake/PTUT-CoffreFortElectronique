@@ -33,13 +33,13 @@ class FtpController:
         self.directory = newDir
     
     def uploadFile(self,pathToSend:str):
-        with open(pathToSend, 'wb') as fp:
-            ftp.storbinary('STOR '+pathToSend, fp)
+        with open(pathToSend, 'wb') as fileToSend:
+            self.ftpSession.storbinary('STOR '+pathToSend, fileToSend)
 
     def listDirectory(self):
         files = []
         try:
-            files = ftp.nlst(self.directory)
+            files = self.ftpSession.nlst(self.directory)
             return files
         except ftplib.error_perm, resp:
             if str(resp) == '550 No files found':

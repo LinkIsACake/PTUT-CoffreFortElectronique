@@ -99,8 +99,22 @@ class UserDAO(DAO):
                 self.logger.error(pwhashError)
                 return False
 
-            self.logger.debug("password is verify")
+            self.logger.debug("password is verified")
             return True
         else:
             self.logger.debug("user not found")
+            return False
+
+    def fetchAllUsers(self):
+        """
+        Retourne tous les noms d'utilisateurs sous la forme d'un tableau de strings.
+
+        :return Retourne un tableau de noms d'utilisateurs si la requête fonctionne
+                Retourne False si la requête échoue.
+        """
+        try:
+            rows = self.database.queryAll(self,"SELECT username FROM Users")
+            return rows
+        except sqlite3.Error as e:
+            print("An error has occured:",e.args[0])
             return False

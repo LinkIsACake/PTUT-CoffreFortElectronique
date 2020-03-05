@@ -26,5 +26,8 @@ class DbHelper:
     def getFirstResult(self) -> []:
         return self.cursor.fetchone()
 
+    def queryAll(self, query, param) -> []:
+        return self.cursor.fetchall()
+
     def close(self):
         self.connection.close()

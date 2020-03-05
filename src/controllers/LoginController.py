@@ -20,7 +20,6 @@ class LoginController(Logger):
             result = self.dao.checkCredentials(username, password)
         return result
 
-
     def register(self, username: str, password: str):
         self.logger.debug("register " + username)
         return self.dao.createUser(username, password)

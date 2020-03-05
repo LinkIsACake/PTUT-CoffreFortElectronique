@@ -10,14 +10,16 @@ import logging
 from models.File import File
 from models.User import User
 
+from Utils.Logger import Logger
 
-class FileController:
+
+class FileController(Logger):
     destinationPath: str
-    logger: logging
 
     def __init__(self, path: str):
+        Logger.__init__(self)
+
         self.destinationPath = path
-        self.logger = logging.getLogger("FileController")
 
     def saveFile(self, path: str, utilisateur: User):
         file = File(path)

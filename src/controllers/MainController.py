@@ -3,10 +3,6 @@ import os
 
 sys.path.append('..')
 
-from dotenv import load_dotenv
-
-load_dotenv()
-
 from views import SendFileManager
 from views import Login
 from views import Home

@@ -1,52 +1,65 @@
-from ftplib import import FTP
+import ftplib
+from ftplib import FTP
+import sys
 
 sys.path.append('..')
 
-class FtpController:
-    
-    url:str
-    login:str
-    password:str
-    ftpSession:str
-    directory:str
+from Utils.Logger import Logger
 
-    def __init__(self,url,login:str="anonymous",password:str=""):
+class FtpController(Logger):
+
+    url: str
+    login: str
+    password: str
+    ftpSession: str
+    directory: str
+
+    def __init__(self, url, login: str = "anonymous", password: str = ""):
+        Logger.__init__(self)
+
         self.url = url
         self.login = login
         self.password = password
 
-        ftpSession = FTP(url,login,password)
+        ftpSession = FTP(url, login, password)
         ftpSession.login()
 
     def getDirectory(self):
+        self.logger.debug("getDirectory")
+
         self.dir = self.ftpSession.pwd()
         return self.dir
 
-    def setDirectory(self,newDir:str):
+    def setDirectory(self, newDir: str):
+        self.logger.debug("setDirectory")
+
         try:
             self.ftpSession.cwd(newDir)
-        except ftplib.error_perm, resp:
+        except ftplib.error_perm as resp:
             if str(resp) == '550 Path does not exist':
                 return False
             else:
                 raise
         self.directory = newDir
-    
-    def uploadFile(self,pathToSend:str):
+
+    def uploadFile(self, pathToSend: str):
+        self.logger.debug("uploadFile")
+
         with open(pathToSend, 'wb') as fileToSend:
-            self.ftpSession.storbinary('STOR '+pathToSend, fileToSend)
+            self.ftpSession.storbinary('STOR ' + pathToSend, fileToSend)
 
     def listDirectory(self):
+        self.logger.debug("listDirectory")
         files = []
         try:
             files = self.ftpSession.nlst(self.directory)
             return files
-        except ftplib.error_perm, resp:
+        except ftplib.error_perm as resp:
             if str(resp) == '550 No files found':
+                self.logger.error('550 No files found')
                 return False
             else:
                 raise
-        
+
     def quitSession(self):
         self.ftpSession.close()
-

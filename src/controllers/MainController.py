@@ -92,17 +92,16 @@ class MainController(Logger):
 
         if username != "" and password != "":
             if self.loginController.user_exist(username):
-                result = False
+                self.notify(user_exist=True)
             else:
                 if not os.path.isdir(self.destinationPath + username):
                     os.mkdir(self.destinationPath + username)
                     result = self.loginController.register(username, pwhash.scrypt.str(password.encode('utf8')))
+                    self.notify(register=True)
                 else:
-                    path_exist = True
+                    self.notify(path_exist=True)
         else:
-            wrong_input = True
-
-        self.notify(register=result, path_exist=path_exist, wrong_input=wrong_input)
+            self.notify(wrong_input=True)
 
     def saveFile(self, path):
         self.logger.debug("saveFile")

@@ -52,18 +52,14 @@ class Login(QtWidgets.QDialog):
 
     def notify(self, **kwargs):
         if kwargs.get("connected", False):
+            self.register_ok()
             self.close()
         else:
-
             if kwargs.get("register", False):
                 QMessageBox.about(self, "Erreur", "Compte déjâ existant")
-                if kwargs.get("path_exist", False):
-                    self.path_exist()
-                else:
-                    self.register_ok()
-
+            if kwargs.get("path_exist", False):
+                self.path_exist()
             if kwargs.get("wrong_credential", False):
                 self.wrong_credential()
-
             if kwargs.get("wrong_input", False):
                 self.wrong_input()

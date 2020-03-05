@@ -6,23 +6,24 @@ sys.path.append('..')
 
 from Utils.Logger import Logger
 
-class FtpController(Logger):
 
+class FtpController(Logger):
     url: str
     login: str
     password: str
-    ftpSession: str
+    ftpSession: FTP
     directory: str
+    dir: str
 
-    def __init__(self, url, login: str = "anonymous", password: str = ""):
+    def __init__(self, url: str, login: str = "anonymous", password: str = ""):
         Logger.__init__(self)
 
         self.url = url
         self.login = login
         self.password = password
 
-        ftpSession = FTP(url, login, password)
-        ftpSession.login()
+        self.ftpSession = FTP(url, login, password)
+        self.ftpSession.login()
 
     def getDirectory(self):
         self.logger.debug("getDirectory")
@@ -48,8 +49,9 @@ class FtpController(Logger):
         with open(pathToSend, 'wb') as fileToSend:
             self.ftpSession.storbinary('STOR ' + pathToSend, fileToSend)
 
-    def listDirectory(self):
+    def listDirectory(self) -> bool:
         self.logger.debug("listDirectory")
+
         files = []
         try:
             files = self.ftpSession.nlst(self.directory)

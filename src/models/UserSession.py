@@ -14,5 +14,6 @@ class UserSession:
         self.files = []
 
     def list_file(self):
-        for root, dirs, files in os.walk(self.path):
-            self.files.append(files)
+        if os.path.isdir(self.path):
+            for root, dirs, files in os.walk(self.path):
+                self.files.append(files)

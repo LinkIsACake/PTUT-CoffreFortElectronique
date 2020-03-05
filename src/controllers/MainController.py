@@ -18,6 +18,7 @@ from .LoginController import LoginController
 from .FileController import FileController
 
 from Utils.Logger import Logger
+from nacl import pwhash,exceptions
 
 
 class MainController(Logger):
@@ -64,8 +65,11 @@ class MainController(Logger):
         wrong_credential = False
 
         if username != "" and password != "":
+
             if self.loginController.login(username, password):
-                self.user = User(username, password)
+                hash_password = pwhash.scrypt.str(password.encode('utf8'))
+
+                self.user = User(username, hash_password)
                 self.create_home(username)
             else:
                 wrong_credential = True
@@ -96,7 +100,7 @@ class MainController(Logger):
             else:
                 if not os.path.isdir(self.destinationPath + username):
                     os.mkdir(self.destinationPath + username)
-                    result = self.loginController.register(username, password)
+                    result = self.loginController.register(username, pwhash.scrypt.str(password.encode('utf8')))
                 else:
                     path_exist = True
         else:
@@ -120,8 +124,7 @@ class MainController(Logger):
         return result
 
     def getFile(self, path):
-        self.logger.debug("getFile")
-
+        self.logger.debug("getFile" + str(path))
         result = self.fileController.getFile(path, self.user)
 
     def send_files(self, files_to_send: []):

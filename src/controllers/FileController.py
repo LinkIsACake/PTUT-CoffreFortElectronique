@@ -32,10 +32,9 @@ class FileController:
             return False
 
     def getFile(self, path: str, utilisateur: User):
-        file = File(path)
-
+        file = File(self.destinationPath + utilisateur.username + "/" + path)
         try:
-            FileEncryptor.decrypt(self.destinationPath, file, utilisateur)
+            FileEncryptor.decrypt(self.destinationPath + utilisateur.username + "/" + path, file, utilisateur)
             return True
         except Exception as saveFileError:
             self.logger.error(saveFileError)

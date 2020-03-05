@@ -62,9 +62,8 @@ class UserDAO(DAO):
 
         self.logger.debug("createUser")
         try:
-            hash_password = pwhash.scrypt.str(password.encode('utf8'))
 
-            self.database.query("INSERT INTO Users VALUES (?,?)", [username, hash_password])
+            self.database.query("INSERT INTO Users VALUES (?,?)", [username, password])
             self.database.connection.commit()
             return True
         except sqlite3.Error as e:
@@ -92,6 +91,7 @@ class UserDAO(DAO):
             self.logger.debug("user found, check checkCredentials")
             try:
                 hash_password = result[1]
+                type(password)
                 pwhash.verify(hash_password, password.encode())
             except exceptions.InvalidkeyError as err:
                 return False

@@ -2,11 +2,9 @@ import sys
 
 from PyQt5.QtWidgets import QPlainTextEdit, QPushButton, QLineEdit, QMessageBox
 
-
 sys.path.append('..')
 
 from src.controllers import MainController
-
 
 from PyQt5 import uic
 from PyQt5.uic.Compiler.qtproxies import QtGui
@@ -46,7 +44,8 @@ class Login(QtWidgets.QDialog):
         QMessageBox.about(self, "Erreur", "Mot-de-passe ou Nom d'utilisateur incorrect")
 
     def path_exist(self):
-        QMessageBox.about(self, "Erreur","Un dossier correspond déjâ à ce nom utilisateur mais il n'est pas enregistré, supprimez le dossier")
+        QMessageBox.about(self, "Erreur",
+                          "Un dossier correspond déjâ à se nom utilisateur mais il n'est pas enregisté, supprimer le dossier")
 
     def wrong_input(self):
         QMessageBox.about(self, "Erreur", "Mot-de-passe ou Nom d'utilisateur incorrect")
@@ -56,17 +55,15 @@ class Login(QtWidgets.QDialog):
             self.close()
         else:
 
-
             if kwargs.get("register", False):
+                QMessageBox.about(self, "Erreur", "Compte déjâ existant")
                 if kwargs.get("path_exist", False):
                     self.path_exist()
                 else:
                     self.register_ok()
-            else:
-                QMessageBox.about(self, "Erreur", "Compte déjâ existant")
 
-            if kwargs.get("wrong_credential",False):
+            if kwargs.get("wrong_credential", False):
                 self.wrong_credential()
 
-            if kwargs.get("wrong_input",False):
+            if kwargs.get("wrong_input", False):
                 self.wrong_input()

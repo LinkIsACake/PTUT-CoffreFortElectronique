@@ -84,6 +84,7 @@ def generateCipherMod(key: int, base: int):
 
     # this need to be lower than 255
     bytesNeeded = ceil(log(cipher, 256))
+
     if bytesNeeded > 255:
         raise ValueError("The cipher of the base is larger than 255 bytes...")
 

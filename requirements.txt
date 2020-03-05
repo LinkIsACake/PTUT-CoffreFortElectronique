@@ -1,2 +1,3 @@
+dotenv
 pynacl
 PyQt5>=5.14.1

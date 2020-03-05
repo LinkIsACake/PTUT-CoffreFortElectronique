@@ -1,12 +1,22 @@
+import base64
+
 from nacl import secret, utils
 from hashlib import sha256
 from random import randrange
 
-from EncryptCore.exceptions import EncryptionKeyError, CryptoError
-from EncryptCore.Utilities import *
+from nacl.public import SealedBox
 
-# TODO: change this import to User and File objects when implemented
-from EncryptCore.beforeImplemented import *
+from .exceptions import EncryptionKeyError, CryptoError
+
+import sys
+
+from .Utilities import generateKey, generateCipherMod, unbundleSizeAndRest, getModFromCipher
+
+sys.path.append('..')
+
+from models.User import User
+from models.File import File
+import pickle
 
 def encrypt(destination: str, file: File, user: User):
     """
@@ -18,11 +28,14 @@ def encrypt(destination: str, file: File, user: User):
     """
 
     # Create a random number that will be used as a base to modify the generated key
-    base = randrange(10**6, 10**7-1)
+    base = randrange(10 ** 6, 10 ** 7 - 1)
+
     # Create the temporary key from the files and user infos
     tmpKey = generateKey(file.infos, user.infos)
     # Create a cipher of the base for being saved in the file (see Utilities:generateCipherMod for more details)
     sizeAndRest, cipherBase = generateCipherMod(tmpKey, base)
+
+    test = unbundleSizeAndRest(int.from_bytes(sizeAndRest, "little"))
 
     # Create a sha256 hash of the temporary key on the random base and create the crypto box from it
     key = sha256(str(tmpKey % base).encode())
@@ -42,13 +55,16 @@ def encrypt(destination: str, file: File, user: User):
         finished = False
         while not finished:
             chunk = readStream.read(1024)
-            if len(chunk) == 0: finished = True
-            else: writeStream.write(box.encrypt(chunk, nonce))
+            if len(chunk) == 0:
+                finished = True
+            else:
+                writeStream.write(box.encrypt(chunk, nonce))
     except CryptoError:
         raise EncryptionKeyError()
     finally:
         readStream.close()
         writeStream.close()
+
 
 def decrypt(destination: str, file: File, user: User):
     """
@@ -85,8 +101,10 @@ def decrypt(destination: str, file: File, user: User):
         finished = False
         while not finished:
             chunk = readStream.read(1024)
-            if len(chunk) == 0: finished = True
-            else: writeStream.write(box.decrypt(chunk))
+            if len(chunk) == 0:
+                finished = True
+            else:
+                writeStream.write(box.decrypt(chunk))
     except CryptoError:
         raise EncryptionKeyError()
     finally:
@@ -101,4 +119,3 @@ if __name__ == '__main__':
 
     enc = File("./tests/encFolder/test.txt")
     decrypt("./tests/decFolder/test.txt", enc, User())
-

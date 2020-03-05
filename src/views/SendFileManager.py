@@ -73,10 +73,10 @@ class SendFileManager(QWidget, Logger):
         self.label.setAlignment(Qt.AlignCenter)
 
         self.file_list = FileListWidget(self)
-        self.button_delete = QPushButton("supprimer")
+        self.button_delete = QPushButton("Supprimer")
         self.button_delete.pressed.connect(self.file_list.remove_file)
 
-        self.button_send = QPushButton("envoyer")
+        self.button_send = QPushButton("Envoyer")
         self.button_send.pressed.connect(self.send_files)
 
         self.layout = QGridLayout()

@@ -14,7 +14,7 @@ from .LoginController import LoginController
 from .FileController import FileController
 
 from Utils.Logger import Logger
-from nacl import pwhash,exceptions
+from nacl import pwhash, exceptions
 
 
 class MainController(Logger):
@@ -144,3 +144,6 @@ class MainController(Logger):
                 files_list.append(file)
 
         return files_list
+
+    def get_users(self):
+        return self.loginController.get_users()

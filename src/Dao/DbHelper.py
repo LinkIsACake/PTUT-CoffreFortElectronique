@@ -27,6 +27,7 @@ class DbHelper:
         return self.cursor.fetchone()
 
     def queryAll(self, query, param) -> []:
+        self.cursor.execute(query, param)
         return self.cursor.fetchall()
 
     def close(self):

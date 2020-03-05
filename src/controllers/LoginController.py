@@ -27,3 +27,6 @@ class LoginController(Logger):
     def user_exist(self, username: str):
         self.logger.debug("user_exist ")
         return self.dao.userExist(username)
+
+    def get_users(self) -> []:
+        return self.dao.fetchAllUsers()

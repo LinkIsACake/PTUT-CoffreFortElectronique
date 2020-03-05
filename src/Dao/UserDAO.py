@@ -105,7 +105,7 @@ class UserDAO(DAO):
             self.logger.debug("user not found")
             return False
 
-    def fetchAllUsers(self):
+    def fetchAllUsers(self)->[]:
         """
         Retourne tous les noms d'utilisateurs sous la forme d'un tableau de strings.
 
@@ -113,8 +113,8 @@ class UserDAO(DAO):
                 Retourne False si la requête échoue.
         """
         try:
-            rows = self.database.queryAll(self,"SELECT username FROM Users")
-            return rows
+            rows = self.database.queryAll("SELECT username FROM Users",[])
+            return [row[0] for row in rows]
         except sqlite3.Error as e:
             print("An error has occured:",e.args[0])
             return False

@@ -85,7 +85,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Password</string>
+    <string>Mot de passe</string>
    </property>
   </widget>
  </widget>

@@ -76,6 +76,11 @@ class MainController(Logger):
                     wrong_credential=wrong_credential,
                     username=username)
 
+    def logout(self):
+        self.observers.pop()
+        self.session = None
+        self.observers.append(Login.Login(self))
+
     def register(self, username, password):
         """
         Register new user

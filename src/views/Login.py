@@ -22,10 +22,8 @@ class UserList(QListWidget):
         self.addItem(user)
 
 
-
-
 class Login(QtWidgets.QDialog):
-    layout : QGridLayout
+    layout: QGridLayout
 
     controller: MainController
 
@@ -33,13 +31,14 @@ class Login(QtWidgets.QDialog):
     register: QPushButton
     password_input: QLineEdit
     username_input: QLineEdit
-    users : []
-    user_list : UserList
+    users: []
+    user_list: UserList
+
     def __init__(self, controller, parent=None):
         super().__init__(parent)
         self.controller = controller
-        #dialog = uic.loadUi("views/Login.ui", self)
-        #dialog.show()
+        # dialog = uic.loadUi("views/Login.ui", self)
+        # dialog.show()
 
         self.init_ui()
 
@@ -58,24 +57,23 @@ class Login(QtWidgets.QDialog):
         self.password_input = QLineEdit()
         self.password_input.setEchoMode(QLineEdit.Password)
 
-
         self.layout.addWidget(QLabel("Nom d'utilisateur"), 0, 0)
 
-        self.layout.addWidget(QLabel("Mot de passe"),1 , 0 )
+        self.layout.addWidget(QLabel("Mot de passe"), 1, 0)
 
-        self.layout.addWidget(self.username_input, 0 ,1)
-        self.layout.addWidget(self.password_input, 1 ,1)
+        self.layout.addWidget(self.username_input, 0, 1)
+        self.layout.addWidget(self.password_input, 1, 1)
 
-        self.layout.addWidget(self.login_button, 2 ,0)
-        self.layout.addWidget(self.register_button, 2 ,1)
+        self.layout.addWidget(self.login_button, 2, 0)
+        self.layout.addWidget(self.register_button, 2, 1)
 
-        self.layout.addWidget(QLabel("Utilisateurs existants"),0,3)
+        self.layout.addWidget(QLabel("Utilisateurs existants"), 0, 3)
 
         self.user_list = UserList()
         self.user_list.clicked.connect(self.select_user)
 
         self.update_list_user()
-        self.layout.addWidget(self.user_list,1 , 3)
+        self.layout.addWidget(self.user_list, 1, 3)
         self.setLayout(self.layout)
         self.show()
 

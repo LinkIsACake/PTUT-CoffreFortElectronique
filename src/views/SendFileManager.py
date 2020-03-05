@@ -64,11 +64,11 @@ class SendFileManager(QWidget, Logger):
 
     def notify(self, **kwargs):
         if kwargs.get("sending_file_status", False):
-            QMessageBox.about(self, "Succes", "Envoi des fichiers reussi ! ")
+            QMessageBox.about(self, "Succes", "Envoi des fichiers réussi ! ")
 
     def initUI(self):
 
-        self.label = QLabel("Proteger de nouveaux fichiers", self)
+        self.label = QLabel("Protéger de nouveaux fichiers", self)
         self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         self.label.setAlignment(Qt.AlignCenter)
 

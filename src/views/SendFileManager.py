@@ -7,7 +7,7 @@ from src.controllers import MainController
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QAction, qApp, QPushButton, QVBoxLayout, QLabel, QDesktopWidget, QSizePolicy, QGridLayout, \
-    QWidget, QListWidget, QMessageBox
+    QWidget, QListWidget, QMessageBox, QComboBox, QCheckBox
 
 from Utils.Logger import Logger
 
@@ -37,6 +37,7 @@ class SendFileManager(QWidget, Logger):
     button_send: QPushButton
     button_delete: QPushButton
 
+    delete_after_upload : QCheckBox
     def __init__(self, controller, *args, **kwargs):
         Logger.__init__(self)
 
@@ -86,6 +87,9 @@ class SendFileManager(QWidget, Logger):
         self.layout.addWidget(self.button_delete)
         self.layout.addWidget(self.button_send)
 
+        self.delete_after_upload = QCheckBox("Supprimer le fichier d'origine après envoi")
+        self.layout.addWidget(self.delete_after_upload)
+
         self.setLayout(self.layout)
         self.show()
 
@@ -96,4 +100,4 @@ class SendFileManager(QWidget, Logger):
             for index in range(self.file_list.count()):
                 files_to_send.append(self.file_list.item(index).text())
 
-            self.controller.send_files(files_to_send)
+            self.controller.send_files(files_to_send,self.delete_after_upload.isChecked())

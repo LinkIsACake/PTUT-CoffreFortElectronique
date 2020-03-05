@@ -108,7 +108,7 @@ class MainController(Logger):
         else:
             self.notify(wrong_input=True)
 
-    def saveFile(self, path):
+    def saveFile(self, path,delete_after_upload:bool):
         self.logger.debug("saveFile")
 
         """
@@ -121,13 +121,15 @@ class MainController(Logger):
         result = False
         if path:
             result = self.fileController.saveFile(path, self.user)
+            if result and delete_after_upload:
+                os.remove(path)
         return result
 
     def getFile(self, path):
         self.logger.debug("getFile" + str(path))
         result = self.fileController.getFile(path, self.user)
 
-    def send_files(self, files_to_send: []):
+    def send_files(self, files_to_send: [],delete_after_upload: bool):
         """
         Send list of file to encrypt
 
@@ -137,7 +139,9 @@ class MainController(Logger):
 
         self.logger.debug(files_to_send)
         for file in files_to_send:
-            self.saveFile(file)
+            self.saveFile(file,delete_after_upload)
+
+
         self.notify(sending_file_status=True)
 
     def get_files(self) -> []:

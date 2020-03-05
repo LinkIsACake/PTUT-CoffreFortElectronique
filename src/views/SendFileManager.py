@@ -90,10 +90,10 @@ class SendFileManager(QWidget, Logger):
         self.show()
 
     def send_files(self):
+        if self.file_list.count() > 0:
+            files_to_send = []
 
-        files_to_send = []
+            for index in range(self.file_list.count()):
+                files_to_send.append(self.file_list.item(index).text())
 
-        for index in range(self.file_list.count()):
-            files_to_send.append(self.file_list.item(index).text())
-
-        self.controller.send_files(files_to_send)
+            self.controller.send_files(files_to_send)

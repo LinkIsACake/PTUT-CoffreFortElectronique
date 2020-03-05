@@ -60,8 +60,10 @@ class LoadFileManager(QWidget, Logger):
 
     def get_file(self):
         file = self.file_list.takeItem(self.file_list.currentRow())
-
-        self.controller.getFile(file.text())
+        if file:
+            self.controller.getFile(file.text())
+        else:
+            QMessageBox.about(self,"Info", "Aucun fichier à envoyer")
 
     def initUI(self):
         self.label = QLabel("Vos fichiers protegés", self)

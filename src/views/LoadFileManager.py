@@ -67,19 +67,18 @@ class LoadFileManager(QWidget, Logger):
 
     def initUI(self):
         self.label = QLabel("Vos fichiers protegés", self)
-        self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.label.setAlignment(Qt.AlignCenter)
+
 
         self.file_list = FileListWidget(self)
         self.button_load = QPushButton("Charger")
         self.button_delete = QPushButton("Supprimer")
 
         self.layout = QGridLayout()
-        self.layout.addWidget(self.label)
-        self.layout.addWidget(self.file_list)
+        self.layout.addWidget(self.label,0,0)
+        self.layout.addWidget(self.file_list,1,0)
 
-        self.layout.addWidget(self.button_load)
-        self.layout.addWidget(self.button_delete)
+        self.layout.addWidget(self.button_load,2,0)
+        self.layout.addWidget(self.button_delete,3,0)
 
         self.button_delete.pressed.connect(self.delete_file)
         self.button_load.pressed.connect(self.get_file)

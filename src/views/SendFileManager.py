@@ -70,8 +70,7 @@ class SendFileManager(QWidget, Logger):
     def initUI(self):
 
         self.label = QLabel("Protéger de nouveaux fichiers", self)
-        self.label.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        self.label.setAlignment(Qt.AlignCenter)
+
 
         self.file_list = FileListWidget(self)
         self.button_delete = QPushButton("Supprimer")

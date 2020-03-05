@@ -46,7 +46,7 @@ class Login(QtWidgets.QDialog):
         self.setGeometry(300, 300, 250, 150)
         self.layout = QGridLayout()
         self.layout.setColumnStretch(10, 10)
-        self.login_button = QPushButton("Connection")
+        self.login_button = QPushButton("Connexion")
         self.register_button = QPushButton("Inscription")
 
         self.login_button.pressed.connect(self.login)
@@ -59,7 +59,7 @@ class Login(QtWidgets.QDialog):
 
         self.layout.addWidget(QLabel("Nom d'utilisateur"), 0, 0)
 
-        self.layout.addWidget(QLabel("Mot de passe"), 1, 0)
+        self.layout.addWidget(QLabel("Mot-de-passe"), 1, 0)
 
         self.layout.addWidget(self.username_input, 0, 1)
         self.layout.addWidget(self.password_input, 1, 1)
@@ -106,7 +106,7 @@ class Login(QtWidgets.QDialog):
 
     def path_exist(self):
         QMessageBox.about(self, "Erreur",
-                          "Un dossier correspond déjâ à se nom utilisateur mais il n'est pas enregisté, supprimer le dossier")
+                          "Un dossier correspond déjâ à ce nom utilisateur mais il n'est pas enregisté, veuillez supprimer le dossier")
 
     def wrong_input(self):
         QMessageBox.about(self, "Erreur", "Mot-de-passe ou Nom d'utilisateur incorrect")

@@ -39,7 +39,7 @@
         <string/>
        </property>
        <property name="placeholderText">
-        <string>ftp://...</string>
+        <string>Ne pas mettre ftp://...</string>
        </property>
       </widget>
      </item>
@@ -74,9 +74,6 @@
        </property>
        <property name="echoMode">
         <enum>QLineEdit::Password</enum>
-       </property>
-       <property name="placeholderText">
-        <string>•••••••</string>
        </property>
       </widget>
      </item>

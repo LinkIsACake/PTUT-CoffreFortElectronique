@@ -146,14 +146,19 @@ class MainController(Logger):
         self.notify(sending_file_status=True)
 
     def get_files(self) -> []:
+        if self.ftpController != None:
+            ftpFiles = self.ftpController.listDirectory()
+            if ftpFiles:
+                return ftpFiles
+            else:
+                return ["Emplacement vide"]
+        else:
+            files_list = []
+            for root, dirs, files in os.walk(self.session.path):
+                for file in files:
+                    files_list.append(file)
 
-        files_list = []
-
-        for root, dirs, files in os.walk(self.session.path):
-            for file in files:
-                files_list.append(file)
-
-        return files_list
+            return files_list
 
     def get_users(self):
         return self.loginController.get_users()
@@ -163,3 +168,7 @@ class MainController(Logger):
 
     def create_ftp_connection(self,url,username,password):
         self.ftpController = FtpController(url,username,password)
+    
+    def end_ftp_connection(self):
+        self.ftpController.quitSession()
+        self.ftpController = None

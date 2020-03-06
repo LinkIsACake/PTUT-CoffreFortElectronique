@@ -1,16 +1,7 @@
-import sys
-
-from PyQt5.QtCore import QRect
-from PyQt5.QtWidgets import QPlainTextEdit, QPushButton, QLineEdit, QMessageBox, QGridLayout, QLabel, QListWidget, \
-    QFrame
-
-sys.path.append('..')
+from PyQt5.QtWidgets import QPushButton, QLineEdit, QMessageBox, QGridLayout, QLabel, QListWidget
+from PyQt5 import QtWidgets
 
 from src.controllers import MainController
-
-from PyQt5 import uic
-from PyQt5.uic.Compiler.qtproxies import QtGui
-from PyQt5 import (QtWidgets, QtCore)
 
 
 class UserList(QListWidget):
@@ -28,6 +19,8 @@ class Login(QtWidgets.QDialog):
     controller: MainController
 
     login_button: QPushButton
+    register_button : QPushButton
+
     register: QPushButton
     password_input: QLineEdit
     username_input: QLineEdit
@@ -36,10 +29,8 @@ class Login(QtWidgets.QDialog):
 
     def __init__(self, controller, parent=None):
         super().__init__(parent)
-        self.controller = controller
-        # dialog = uic.loadUi("views/Login.ui", self)
-        # dialog.show()
 
+        self.controller = controller
         self.init_ui()
 
     def init_ui(self):

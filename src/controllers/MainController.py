@@ -1,20 +1,17 @@
-import sys
 import os
 
-sys.path.append('..')
+from src.views import Login
+from src.views import Home
 
-from views import SendFileManager
-from views import Login
-from views import Home
+from src.models.User import User
+from src.models.UserSession import UserSession
 
-from models.User import User
-from models.UserSession import UserSession
+from src.controllers.LoginController import LoginController
+from src.controllers.FileController import FileController
 
-from .LoginController import LoginController
-from .FileController import FileController
+from src.Utils.Logger import Logger
 
-from Utils.Logger import Logger
-from nacl import pwhash, exceptions
+from nacl import pwhash
 
 
 class MainController(Logger):

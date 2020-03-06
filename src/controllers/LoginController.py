@@ -1,9 +1,5 @@
-import sys
-
-sys.path.append('..')
-import nacl
-from Dao.UserDAO import UserDAO
-from Utils.Logger import Logger
+from src.Dao.UserDAO import UserDAO
+from src.Utils.Logger import Logger
 
 
 class LoginController(Logger):

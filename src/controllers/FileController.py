@@ -1,16 +1,14 @@
 import os
-import sys
 
-sys.path.append('..')
 
-from EncryptCore import FileEncryptor
-from EncryptCore.beforeImplemented import *
+from src.EncryptCore import FileEncryptor
+from src.EncryptCore.beforeImplemented import *
 
 import logging
-from models.File import File
-from models.User import User
+from src.models.File import File
+from src.models.User import User
 
-from Utils.Logger import Logger
+from src.Utils.Logger import Logger
 
 
 class FileController(Logger):

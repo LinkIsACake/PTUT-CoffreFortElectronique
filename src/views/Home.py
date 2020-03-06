@@ -1,22 +1,10 @@
-import sys
+from PyQt5.QtWidgets import QPushButton, QGridLayout, \
+    QWidget
 
-sys.path.append('..')
-
-from controllers import MainController
-
-import PyQt5
-
-
-from PyQt5 import QtCore, QtGui, QtWidgets, uic
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QIcon, QDropEvent
-from PyQt5.QtWidgets import QAction, qApp, QPushButton, QVBoxLayout, QLabel, QDesktopWidget, QSizePolicy, QGridLayout, \
-    QWidget, QListWidget, QMessageBox
-
-from . import SendFileManager
-from . import LoadFileManager
-
-from Utils.Logger import Logger
+from src.Utils.Logger import Logger
+from src.controllers import MainController
+from src.views.LoadFileManager import LoadFileManager
+from src.views.SendFileManager import SendFileManager
 
 
 class Home(QWidget, Logger):
@@ -50,8 +38,8 @@ class Home(QWidget, Logger):
         self.layout = QGridLayout()
         self.layout.setColumnStretch(3, 3)
 
-        self.sendFileManager = SendFileManager.SendFileManager(self.controller)
-        self.loadFileManager = LoadFileManager.LoadFileManager(self.controller)
+        self.sendFileManager = SendFileManager(self.controller)
+        self.loadFileManager = LoadFileManager(self.controller)
         self.button_logout = QPushButton("Déconnexion")
         self.button_logout.clicked.connect(self.logout)
 

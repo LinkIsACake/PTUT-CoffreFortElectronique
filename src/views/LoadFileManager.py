@@ -1,14 +1,9 @@
-import sys
 
-sys.path.append('..')
-
-from controllers import MainController
-
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAction, qApp, QPushButton, QVBoxLayout, QLabel, QDesktopWidget, QSizePolicy, QGridLayout, \
+from PyQt5.QtWidgets import QPushButton, QLabel, QGridLayout, \
     QWidget, QListWidget, QMessageBox
 
-from Utils.Logger import Logger
+from src.Utils.Logger import Logger
+from src.controllers import MainController
 
 
 class FileListWidget(QListWidget):

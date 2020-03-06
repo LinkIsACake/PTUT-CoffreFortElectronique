@@ -1,8 +1,7 @@
-from .DAO import DAO
 import sqlite3
-import os
-from nacl import pwhash,exceptions
-import logging
+from nacl import pwhash, exceptions
+from .DAO import DAO
+
 
 class UserDAO(DAO):
     database = None

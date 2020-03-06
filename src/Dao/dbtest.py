@@ -1,4 +1,4 @@
-from UserDAO import UserDAO
+from src.Dao.UserDAO import UserDAO
 
 dao = UserDAO()
 dao.createUser("andrethegiant","password2")

@@ -1,5 +1,5 @@
 from .DbHelper import DbHelper
-from Utils.Logger import Logger
+from src.Utils.Logger import Logger
 
 class DAO(Logger):
     database = None

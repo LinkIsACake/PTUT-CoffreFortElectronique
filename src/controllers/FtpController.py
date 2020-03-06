@@ -1,10 +1,6 @@
 import ftplib
 from ftplib import FTP
-import sys
-
-sys.path.append('..')
-
-from Utils.Logger import Logger
+from src.Utils.Logger import Logger
 
 
 class FtpController(Logger):

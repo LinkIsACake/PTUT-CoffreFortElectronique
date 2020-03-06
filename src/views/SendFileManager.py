@@ -1,15 +1,8 @@
-import sys
-
-sys.path.append('..')
-
 from src.controllers import MainController
+from src.Utils.Logger import Logger
 
+from PyQt5.QtWidgets import QPushButton, QLabel, QGridLayout,QWidget, QListWidget, QMessageBox, QCheckBox
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QAction, qApp, QPushButton, QVBoxLayout, QLabel, QDesktopWidget, QSizePolicy, QGridLayout, \
-    QWidget, QListWidget, QMessageBox, QComboBox, QCheckBox
-
-from Utils.Logger import Logger
 
 
 

@@ -2,7 +2,6 @@ import os
 
 
 from src.EncryptCore import FileEncryptor
-from src.EncryptCore.beforeImplemented import *
 
 import logging
 from src.models.File import File

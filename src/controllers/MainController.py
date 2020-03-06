@@ -144,7 +144,7 @@ class MainController(Logger):
                 self.ftpController.uploadFile(file)
         else:
             for file in files_to_send:
-            self.saveFile(file, delete_after_upload)
+                self.saveFile(file, delete_after_upload)
 
         self.notify(sending_file_status=True)
 

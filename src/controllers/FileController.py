@@ -33,8 +33,12 @@ class FileController(Logger):
     def getFile(self, path: str, utilisateur: User):
         file = File(self.destinationPath + utilisateur.username + "/" + path)
         try:
-            FileEncryptor.decrypt(self.destinationPath + "/" + path, file, utilisateur)
-            return True
+            result = FileEncryptor.decrypt(self.destinationPath + utilisateur.username + "/" + "_" + path, file, utilisateur)
+            if result:
+                os.remove(self.destinationPath + utilisateur.username + "/" + path)
+                return True
+            else:
+                return False
         except Exception as saveFileError:
             self.logger.error(saveFileError)
             return False

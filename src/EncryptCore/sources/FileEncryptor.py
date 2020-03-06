@@ -100,11 +100,13 @@ def decrypt(destination: str, file: File, user: User):
                 finished = True
             else:
                 writeStream.write(box.decrypt(chunk))
+
     except CryptoError:
-        raise EncryptionKeyError()
+        return False
     finally:
         readStream.close()
         writeStream.close()
+        return True
 
 if __name__ == '__main__':
     print("Tests of EncryptCore:FileEncryptor")

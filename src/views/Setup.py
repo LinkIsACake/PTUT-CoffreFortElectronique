@@ -15,7 +15,23 @@ class Setup(QtWidgets.QDialog):
         self.init_ui()
 
     def init_ui(self):
-        dialog = uic.loadUi("views/Setup.ui", self)
+        dialog = uic.loadUi("src/views/Setup.ui", self)
         dialog.show()
 
-    
+        self.cheminLocalLineEdit.setText(self.controller.destinationPath)
+        self.pushButton.pressed.connect(self.validate_changes)
+
+    def validate_changes(self):
+        if self.radioButton_remote.isChecked():
+            ftpUrl = self.uRLDistanteFtpLineEdit.text()
+            ftpUsername = self.nomDUtilisateurLineEdit.text()
+            ftpPassword = self.motDePasseLineEdit.text()
+
+            self.controller.create_ftp_connection(ftpUrl,ftpUsername,ftpPassword)
+        else:
+            localPath = self.cheminLocalLineEdit.text()
+            self.controller.destinationPath = localPath
+
+    #valider: appeler fonction configure du mainController
+    #passer en paramètres
+    #modifier filemanager pour mode distant et mode local

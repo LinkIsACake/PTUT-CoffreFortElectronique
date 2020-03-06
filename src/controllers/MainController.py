@@ -2,12 +2,14 @@ import os
 
 from src.views import Login
 from src.views import Home
+from src.views import Setup
 
 from src.models.User import User
 from src.models.UserSession import UserSession
 
 from src.controllers.LoginController import LoginController
 from src.controllers.FileController import FileController
+from src.controllers.FtpController import FtpController
 
 from src.Utils.Logger import Logger
 
@@ -18,6 +20,7 @@ class MainController(Logger):
     connected: bool
     loginController: LoginController
     fileController: FileController
+    ftpController : FtpController
 
     session: UserSession
 
@@ -30,6 +33,7 @@ class MainController(Logger):
 
         self.loginController = LoginController()
         self.fileController = FileController(self.destinationPath)
+        self.ftpController = None
         self.connected = False
         self.observers = [Login.Login(self)]
         self.user = None
@@ -153,3 +157,9 @@ class MainController(Logger):
 
     def get_users(self):
         return self.loginController.get_users()
+
+    def setup(self):
+        self.observers.append(Setup.Setup(self))
+
+    def create_ftp_connection(self,url,username,password):
+        self.ftpController = FtpController(url,username,password)

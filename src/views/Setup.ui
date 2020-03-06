@@ -149,7 +149,7 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QRadioButton" name="radioButton_2">
+      <widget class="QRadioButton" name="radioButton_local">
        <property name="text">
         <string>Chemin Local</string>
        </property>
@@ -159,7 +159,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="radioButton">
+      <widget class="QRadioButton" name="radioButton_remote">
        <property name="text">
         <string>Stockage à distance FTP</string>
        </property>

@@ -35,14 +35,19 @@ class Home(QWidget, Logger):
         self.close()
         self.controller.logout()
 
+    def setup(self):
+        self.controller.setup()
+
     def initUI(self):
         self.layout = QGridLayout()
         self.layout.setColumnStretch(3, 3)
-
+        self.button_config = QPushButton("Paramètres")
+        self.layout.addWidget(self.button_config, 3,0)
         self.sendFileManager = SendFileManager(self.controller)
         self.loadFileManager = LoadFileManager(self.controller)
         self.button_logout = QPushButton(Label.LOGOUT)
         self.button_logout.clicked.connect(self.logout)
+        self.button_config.clicked.connect(self.setup)
 
         self.layout.addWidget(self.sendFileManager, 0, 0)
         self.layout.addWidget(self.loadFileManager, 0, 1)

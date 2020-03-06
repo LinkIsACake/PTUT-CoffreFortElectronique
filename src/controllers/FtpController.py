@@ -45,7 +45,6 @@ class FtpController(Logger):
 
     def uploadFile(self, pathToSend: str):
         self.logger.debug("uploadFile")
-
         with open(pathToSend, 'wb') as fileToSend:
             self.ftpSession.storbinary('STOR ' + pathToSend, fileToSend)
 

@@ -137,9 +137,13 @@ class MainController(Logger):
         :param files_to_send: list of path of file to encrypt
         """
         self.logger.debug("send_files")
-
         self.logger.debug(files_to_send)
-        for file in files_to_send:
+
+        if self.ftpController is not None:
+            for file in files_to_send:
+                self.ftpController.uploadFile(file)
+        else:
+            for file in files_to_send:
             self.saveFile(file, delete_after_upload)
 
         self.notify(sending_file_status=True)

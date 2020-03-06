@@ -171,14 +171,14 @@
     </layout>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="pushButton_validate">
      <property name="text">
       <string>Enregistrer</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="pushButton_cancel">
      <property name="text">
       <string>Annuler</string>
      </property>

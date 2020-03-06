@@ -19,7 +19,11 @@ class Setup(QtWidgets.QDialog):
         dialog.show()
 
         self.cheminLocalLineEdit.setText(self.controller.destinationPath)
-        self.pushButton.pressed.connect(self.validate_changes)
+        self.pushButton_validate.pressed.connect(self.validate_changes)
+        self.pushButton_cancel.pressed.connect(self.cancel_changes)
+
+    def cancel_changes(self):
+        self.close()
 
     def validate_changes(self):
         if self.radioButton_remote.isChecked():

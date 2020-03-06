@@ -52,7 +52,7 @@ class Login(QtWidgets.QDialog):
 
         self.layout.addWidget(QLabel(Label.LOGIN_INPUT_USERNAME), 0, 0)
 
-        self.layout.addWidget(QLabel(Label.REGISTRATION_BUTTON), 1, 0)
+        self.layout.addWidget(QLabel(Label.LOGIN_INPUT_PASSWORD), 1, 0)
 
         self.layout.addWidget(self.username_input, 0, 1)
         self.layout.addWidget(self.password_input, 1, 1)

@@ -54,7 +54,7 @@ def encrypt(destination: str, file: File, user: User):
     try:
         finished = False
         while not finished:
-            chunk = readStream.read(1024)
+            chunk = readStream.read(65536)
             if len(chunk) == 0:
                 finished = True
             else:
@@ -100,7 +100,7 @@ def decrypt(destination: str, file: File, user: User):
     try:
         finished = False
         while not finished:
-            chunk = readStream.read(1024)
+            chunk = readStream.read(65536 + 40)
             if len(chunk) == 0:
                 finished = True
             else:

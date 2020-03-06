@@ -6,6 +6,7 @@ from src.controllers import MainController
 from src.views.LoadFileManager import LoadFileManager
 from src.views.SendFileManager import SendFileManager
 
+from src.assets.Label import Label
 
 class Home(QWidget, Logger):
     controller: MainController
@@ -40,12 +41,12 @@ class Home(QWidget, Logger):
 
         self.sendFileManager = SendFileManager(self.controller)
         self.loadFileManager = LoadFileManager(self.controller)
-        self.button_logout = QPushButton("Déconnexion")
+        self.button_logout = QPushButton(Label.LOGOUT)
         self.button_logout.clicked.connect(self.logout)
 
         self.layout.addWidget(self.sendFileManager, 0, 0)
         self.layout.addWidget(self.loadFileManager, 0, 1)
-        self.layout.addWidget(self.button_logout,2,0)
+        self.layout.addWidget(self.button_logout, 2, 0)
 
         self.setLayout(self.layout)
         self.show()

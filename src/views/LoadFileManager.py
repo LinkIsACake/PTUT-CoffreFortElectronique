@@ -1,9 +1,9 @@
-
 from PyQt5.QtWidgets import QPushButton, QLabel, QGridLayout, \
     QWidget, QListWidget, QMessageBox
 
 from src.Utils.Logger import Logger
 from src.controllers import MainController
+from src.assets.Label import Label
 
 
 class FileListWidget(QListWidget):
@@ -27,8 +27,8 @@ class LoadFileManager(QWidget, Logger):
     layout: QGridLayout
     file_list: FileListWidget
 
-    button_load : QPushButton
-    button_delete : QPushButton
+    button_load: QPushButton
+    button_delete: QPushButton
 
     files = []
 
@@ -58,22 +58,21 @@ class LoadFileManager(QWidget, Logger):
         if file:
             self.controller.getFile(file.text())
         else:
-            QMessageBox.about(self,"Info", "Aucun fichier à envoyer")
+            QMessageBox.about(self, "Info", Label.NO_FILES_TO_SEND)
 
     def initUI(self):
-        self.label = QLabel("Vos fichiers protegés", self)
-
+        self.label = QLabel(Label.FILES_PROTECTED, self)
 
         self.file_list = FileListWidget(self)
-        self.button_load = QPushButton("Charger")
-        self.button_delete = QPushButton("Supprimer")
+        self.button_load = QPushButton(Label.LOAD)
+        self.button_delete = QPushButton(Label.DELETE)
 
         self.layout = QGridLayout()
-        self.layout.addWidget(self.label,0,0)
-        self.layout.addWidget(self.file_list,1,0)
+        self.layout.addWidget(self.label, 0, 0)
+        self.layout.addWidget(self.file_list, 1, 0)
 
-        self.layout.addWidget(self.button_load,2,0)
-        self.layout.addWidget(self.button_delete,3,0)
+        self.layout.addWidget(self.button_load, 2, 0)
+        self.layout.addWidget(self.button_delete, 3, 0)
 
         self.button_delete.pressed.connect(self.delete_file)
         self.button_load.pressed.connect(self.get_file)

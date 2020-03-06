@@ -2,7 +2,7 @@ from src.controllers import MainController
 from src.Utils.Logger import Logger
 
 from PyQt5.QtWidgets import QPushButton, QLabel, QGridLayout, QWidget, QListWidget, QMessageBox, QCheckBox
-
+from src.assets.Label import Label
 
 class FileListWidget(QListWidget):
 
@@ -57,17 +57,17 @@ class SendFileManager(QWidget, Logger):
 
     def notify(self, **kwargs):
         if kwargs.get("sending_file_status", False):
-            QMessageBox.about(self, "Succes", "Envoi des fichiers réussi ! ")
+            QMessageBox.about(self, Label.SEND_FILES_SUCCES)
 
     def initUI(self):
 
-        self.label = QLabel("Protéger de nouveaux fichiers", self)
+        self.label = QLabel(Label.PROTECT_NEW_FILES, self)
 
         self.file_list = FileListWidget(self)
-        self.button_delete = QPushButton("Supprimer")
+        self.button_delete = QPushButton(Label.DELETE)
         self.button_delete.pressed.connect(self.file_list.remove_file)
 
-        self.button_send = QPushButton("Envoyer")
+        self.button_send = QPushButton(Label.SEND)
         self.button_send.pressed.connect(self.send_files)
 
         self.layout = QGridLayout()
@@ -77,7 +77,7 @@ class SendFileManager(QWidget, Logger):
         self.layout.addWidget(self.button_delete)
         self.layout.addWidget(self.button_send)
 
-        self.delete_after_upload = QCheckBox("Supprimer le fichier d'origine après envoi")
+        self.delete_after_upload = QCheckBox(Label.DELETE_AFTER_UPLOAD)
         self.layout.addWidget(self.delete_after_upload)
 
         self.setLayout(self.layout)

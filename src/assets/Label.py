@@ -19,3 +19,15 @@ class Label:
     INFO = "Info"
     ERROR = "Erreur"
     # HOME VIEW
+
+    LOGOUT = "Déconnexion"
+    FILES_PROTECTED = "Vos fichiers protegés"
+    LOAD = "Charger"
+    DELETE = "Supprimer"
+    NO_FILES_TO_SEND = "Aucun fichier à envoyer"
+    DELETE_AFTER_UPLOAD = "Supprimer le fichier d'origine après envoi"
+
+    SEND = "Envoyer"
+
+    PROTECT_NEW_FILES = "Protéger de nouveaux fichiers"
+    SEND_FILES_SUCCES = "Succes", "Envoi des fichiers réussi !"

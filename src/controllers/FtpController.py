@@ -22,7 +22,7 @@ class FtpController(Logger):
         if not login:
             self.ftpSession = FTP(url)
         else:
-            self.ftpSession = FTP(url,login,password)
+            self.ftpSession = FTP(url, login,password)
         self.ftpSession.login()
 
 
@@ -49,7 +49,7 @@ class FtpController(Logger):
         with open(pathToSend, 'wb') as fileToSend:
             self.ftpSession.storbinary('STOR ' + pathToSend, fileToSend)
 
-    def notify(self,**kwargs):
+    def notify(self, **kwargs):
         pass
 
     def listDirectory(self) -> bool:

@@ -1,5 +1,5 @@
 @echo off
 echo "Lancement de l'application"
-cd .\src
-python .\main.py
+SET PYTHONPATH="$PWD/src"
+python ./src/main.py
 pause

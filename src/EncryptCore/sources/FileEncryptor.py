@@ -1,22 +1,12 @@
-import base64
-
 from nacl import secret, utils
 from hashlib import sha256
 from random import randrange
 
-from nacl.public import SealedBox
-
-from .exceptions import EncryptionKeyError, CryptoError
-
-import sys
-
-from .Utilities import generateKey, generateCipherMod, unbundleSizeAndRest, getModFromCipher
-
-sys.path.append('..')
+from EncryptCore.exceptions import EncryptionKeyError, CryptoError
+from EncryptCore.Utilities import generateKey, generateCipherMod, unbundleSizeAndRest, getModFromCipher
 
 from models.User import User
 from models.File import File
-import pickle
 
 def encrypt(destination: str, file: File, user: User):
     """

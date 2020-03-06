@@ -40,7 +40,7 @@ def encrypt(destination: str, file: File, user: User):
     writeStream.write(sizeAndRest)
     writeStream.write(cipherBase)
 
-    # Read every 1024 bytes of the input file, encrypt it and save it to the output file
+    # Read every 65536 bytes of the input file, encrypt it and save it to the output file
     try:
         finished = False
         while not finished:
@@ -86,7 +86,7 @@ def decrypt(destination: str, file: File, user: User):
     # open the output file (decrypted)
     writeStream = File(destination).openStream("wb")
 
-    # read every 1024 bytes of the file and decrypt it using the box
+    # read every 65536 bytes of the file plus 40 bytes of encryption infos and decrypt it using the box
     try:
         finished = False
         while not finished:

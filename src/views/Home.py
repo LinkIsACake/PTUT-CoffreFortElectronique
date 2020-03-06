@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QPushButton, QGridLayout, \
-    QWidget
+    QWidget, QMessageBox
 
 from src.Utils.Logger import Logger
 from src.controllers import MainController
@@ -30,6 +30,8 @@ class Home(QWidget, Logger):
 
     def notify(self, **kwargs):
         self.loadFileManager.update_list()
+        if kwargs.get("load_file_succes", False):
+            QMessageBox.about(self, Label.INFO, Label.FILES_LOAD_SUCCES)
 
     def logout(self):
         self.close()

@@ -129,6 +129,8 @@ class MainController(Logger):
     def getFile(self, path):
         self.logger.debug("getFile" + str(path))
         result = self.fileController.getFile(path, self.user)
+        if result:
+            self.notify(load_file_succes=True)
 
     def send_files(self, files_to_send: [], delete_after_upload: bool):
         """

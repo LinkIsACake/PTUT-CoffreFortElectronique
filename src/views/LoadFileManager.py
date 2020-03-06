@@ -30,7 +30,7 @@ class LoadFileManager(QWidget, Logger):
     button_load: QPushButton
     button_delete: QPushButton
 
-    files = []
+    files = [str]
 
     def __init__(self, controller, *args, **kwargs):
         Logger.__init__(self)
@@ -48,7 +48,8 @@ class LoadFileManager(QWidget, Logger):
         self.file_list.clear()
 
         for file in self.files:
-            self.file_list.add_file(file)
+            if file[0] != "_":
+                self.file_list.add_file(file)
         self.logger.info("update_list_done")
 
     def delete_file(self):

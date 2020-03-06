@@ -2,6 +2,7 @@ class Label:
 
     # LOGIN VIEW
 
+    FILES_LOAD_SUCCES = "Le fichier à bien était déchiffrer"
     LOGIN_BUTTON = "Connexion"
     REGISTRATION_BUTTON = "Inscription"
 

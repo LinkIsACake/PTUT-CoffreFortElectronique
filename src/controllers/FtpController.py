@@ -23,7 +23,6 @@ class FtpController(Logger):
 
     def getDirectory(self):
         self.logger.debug("getDirectory")
-
         self.dir = self.ftpSession.pwd()
         return self.dir
 
@@ -37,7 +36,7 @@ class FtpController(Logger):
                 return False
             else:
                 raise
-        self.directory = newDir
+        self.dir = newDir
 
     def uploadFile(self, pathToSend: str):
         self.logger.debug("uploadFile")

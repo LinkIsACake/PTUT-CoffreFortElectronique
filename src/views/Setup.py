@@ -30,10 +30,13 @@ class Setup(QtWidgets.QDialog):
             ftpUrl = self.uRLDistanteFtpLineEdit.text()
             ftpUsername = self.nomDUtilisateurLineEdit.text()
             ftpPassword = self.motDePasseLineEdit.text()
+            ftpDirectory = self.repertoireLineEdit.text()
 
             self.controller.create_ftp_connection(ftpUrl,ftpUsername,ftpPassword)
+            self.controller.ftpController.setDirectory(ftpDirectory)
         else:
             localPath = self.cheminLocalLineEdit.text()
+            self.controller.end_ftp_connection()
             self.controller.destinationPath = localPath
 
     #valider: appeler fonction configure du mainController

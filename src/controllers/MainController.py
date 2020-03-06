@@ -20,7 +20,7 @@ class MainController(Logger):
     connected: bool
     loginController: LoginController
     fileController: FileController
-    ftpController : FtpController
+    ftpController: FtpController
 
     session: UserSession
 
@@ -109,7 +109,7 @@ class MainController(Logger):
         else:
             self.notify(wrong_input=True)
 
-    def saveFile(self, path,delete_after_upload:bool):
+    def saveFile(self, path, delete_after_upload: bool):
         self.logger.debug("saveFile")
 
         """
@@ -130,7 +130,7 @@ class MainController(Logger):
         self.logger.debug("getFile" + str(path))
         result = self.fileController.getFile(path, self.user)
 
-    def send_files(self, files_to_send: [],delete_after_upload: bool):
+    def send_files(self, files_to_send: [], delete_after_upload: bool):
         """
         Send list of file to encrypt
 
@@ -140,13 +140,13 @@ class MainController(Logger):
 
         self.logger.debug(files_to_send)
         for file in files_to_send:
-            self.saveFile(file,delete_after_upload)
-
+            self.saveFile(file, delete_after_upload)
 
         self.notify(sending_file_status=True)
 
     def get_files(self) -> []:
-        if self.ftpController != None:
+        self.logger.info("get_files")
+        if self.ftpController is not None:
             ftpFiles = self.ftpController.listDirectory()
             if ftpFiles:
                 return ftpFiles
@@ -166,9 +166,11 @@ class MainController(Logger):
     def setup(self):
         self.observers.append(Setup.Setup(self))
 
-    def create_ftp_connection(self,url,username,password):
-        self.ftpController = FtpController(url,username,password)
-    
+    def create_ftp_connection(self, url, username, password):
+        self.ftpController = FtpController(url, username, password)
+        self.observers.pop()
+        self.notify()
+
     def end_ftp_connection(self):
         self.ftpController.quitSession()
         self.ftpController = None

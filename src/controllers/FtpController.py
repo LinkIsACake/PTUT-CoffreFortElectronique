@@ -8,23 +8,28 @@ class FtpController(Logger):
     login: str
     password: str
     ftpSession: FTP
-    directory: str
+    startPoint: str
     dir: str
 
-    def __init__(self, url: str, login: str = "anonymous", password: str = ""):
+    def __init__(self, url: str, login: str = None, password: str = None):
         Logger.__init__(self)
 
         self.url = url
         self.login = login
         self.password = password
+        self.startPoint = "/"
 
-        self.ftpSession = FTP(url, login, password)
+        if not login:
+            self.ftpSession = FTP(url)
+        else:
+            self.ftpSession = FTP(url,login,password)
         self.ftpSession.login()
+
 
     def getDirectory(self):
         self.logger.debug("getDirectory")
-        self.dir = self.ftpSession.pwd()
-        return self.dir
+        current_directory = self.ftpSession.pwd()
+        return current_directory
 
     def setDirectory(self, newDir: str):
         self.logger.debug("setDirectory")
@@ -36,7 +41,7 @@ class FtpController(Logger):
                 return False
             else:
                 raise
-        self.dir = newDir
+        self.startPoint = newDir
 
     def uploadFile(self, pathToSend: str):
         self.logger.debug("uploadFile")
@@ -44,12 +49,15 @@ class FtpController(Logger):
         with open(pathToSend, 'wb') as fileToSend:
             self.ftpSession.storbinary('STOR ' + pathToSend, fileToSend)
 
+    def notify(self,**kwargs):
+        pass
+
     def listDirectory(self) -> bool:
         self.logger.debug("listDirectory")
 
         files = []
         try:
-            files = self.ftpSession.nlst(self.directory)
+            files = self.ftpSession.nlst(self.startPoint)
             return files
         except ftplib.error_perm as resp:
             if str(resp) == '550 No files found':

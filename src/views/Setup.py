@@ -38,7 +38,7 @@ class Setup(QtWidgets.QDialog):
             localPath = self.cheminLocalLineEdit.text()
             self.controller.end_ftp_connection()
             self.controller.destinationPath = localPath
-
+        self.close()
     #valider: appeler fonction configure du mainController
     #passer en paramètres
     #modifier filemanager pour mode distant et mode local

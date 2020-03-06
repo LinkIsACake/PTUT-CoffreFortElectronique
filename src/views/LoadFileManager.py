@@ -49,6 +49,7 @@ class LoadFileManager(QWidget, Logger):
 
         for file in self.files:
             self.file_list.add_file(file)
+        self.logger.info("update_list_done")
 
     def delete_file(self):
         pass

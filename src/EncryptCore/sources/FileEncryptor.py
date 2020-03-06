@@ -1,12 +1,14 @@
+import os
+
 from nacl import secret, utils
 from hashlib import sha256
 from random import randrange
 
-from EncryptCore.exceptions import EncryptionKeyError, CryptoError
-from EncryptCore.Utilities import generateKey, generateCipherMod, unbundleSizeAndRest, getModFromCipher
+from src.EncryptCore.sources.exceptions import EncryptionKeyError, CryptoError
+from src.EncryptCore.sources.Utilities import generateKey, generateCipherMod, unbundleSizeAndRest, getModFromCipher
 
-from models.User import User
-from models.File import File
+from src.models.User import User
+from src.models.File import File
 
 def encrypt(destination: str, file: File, user: User):
     """
@@ -41,10 +43,11 @@ def encrypt(destination: str, file: File, user: User):
     writeStream.write(cipherBase)
 
     # Read every 65536 bytes of the input file, encrypt it and save it to the output file
+    print(os.fstat(readStream.fileno()).st_size)
     try:
         finished = False
         while not finished:
-            chunk = readStream.read(65536)
+            chunk = readStream.read(16777214)
             if len(chunk) == 0:
                 finished = True
             else:
@@ -87,10 +90,12 @@ def decrypt(destination: str, file: File, user: User):
     writeStream = File(destination).openStream("wb")
 
     # read every 65536 bytes of the file plus 40 bytes of encryption infos and decrypt it using the box
+    print(os.fstat(readStream.fileno()).st_size)
+
     try:
         finished = False
         while not finished:
-            chunk = readStream.read(65536 + 40)
+            chunk = readStream.read(16777214 + 40)
             if len(chunk) == 0:
                 finished = True
             else:

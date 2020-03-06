@@ -1,7 +1,7 @@
 import os
 
 
-from src.EncryptCore import FileEncryptor
+from src.EncryptCore.sources import FileEncryptor
 
 import logging
 from src.models.File import File
@@ -33,7 +33,7 @@ class FileController(Logger):
     def getFile(self, path: str, utilisateur: User):
         file = File(self.destinationPath + utilisateur.username + "/" + path)
         try:
-            FileEncryptor.decrypt(self.destinationPath + utilisateur.username + "/" + path, file, utilisateur)
+            FileEncryptor.decrypt(self.destinationPath + "/" + path, file, utilisateur)
             return True
         except Exception as saveFileError:
             self.logger.error(saveFileError)

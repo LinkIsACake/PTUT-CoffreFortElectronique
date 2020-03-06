@@ -14,8 +14,6 @@ class UserList(QListWidget):
         self.addItem(user)
 
 
-
-
 class Login(QtWidgets.QDialog):
     layout: QGridLayout
 
@@ -76,8 +74,6 @@ class Login(QtWidgets.QDialog):
         user_selected = self.user_list.selectedItems()[0]
 
         self.username_input.setText(user_selected.text())
-
-
 
     def update_list_user(self):
         self.users = self.controller.get_users()

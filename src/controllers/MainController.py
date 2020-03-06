@@ -21,7 +21,7 @@ class MainController(Logger):
 
     session: UserSession
 
-    destinationPath = "../ressource/"
+    destinationPath = "ressource/"
 
     observers: []
 

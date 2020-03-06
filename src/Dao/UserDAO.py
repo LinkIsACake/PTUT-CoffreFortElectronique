@@ -1,5 +1,7 @@
 import sqlite3
-from nacl import pwhash, exceptions
+import nacl.pwhash
+import nacl.exceptions
+
 from .DAO import DAO
 
 
@@ -8,7 +10,7 @@ class UserDAO(DAO):
     databaseCreationScript = 'CREATE TABLE "Users" ("username"	TEXT NOT NULL, "password" TEXT NOT NULL, PRIMARY KEY("username"));'
 
     # Initialisation du DAO et création de la table users si elle n'existe pas
-    def __init__(self, path: str = "../ressource/users.sqlite"):
+    def __init__(self, path: str = "ressource/users.sqlite"):
         DAO.__init__(self, path)
         if not self.init:
             self.database.query(self.databaseCreationScript, [])
@@ -91,8 +93,8 @@ class UserDAO(DAO):
             try:
                 hash_password = result[1]
                 type(password)
-                pwhash.verify(hash_password, password.encode())
-            except exceptions.InvalidkeyError as err:
+                nacl.pwhash.verify(hash_password, password.encode())
+            except nacl.pwhash.InvalidkeyError as err:
                 return False
             except Exception as pwhashError:
                 self.logger.error(pwhashError)

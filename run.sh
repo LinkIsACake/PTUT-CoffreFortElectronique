@@ -1,4 +1,4 @@
 #!/bin/bash
 echo "Lancement de l'application..."
-cd ./src
-python ./main.py
+export PYTHONPATH="$PWD/src"
+python ./src/main.py

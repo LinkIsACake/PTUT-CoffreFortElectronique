@@ -152,7 +152,14 @@ class MainController(Logger):
 
         if self.ftpController is not None:
             for file in files_to_send:
-                self.ftpController.upload_file(file)
+                try:
+                    self.save_file(file, False)
+                except Exception as err:
+                    print(err)
+                print(os.path.basename(file))
+                transfert = self.destinationPath + self.user.username + '/' + os.path.basename(file)
+
+                self.ftpController.upload_file(transfert)
         else:
             for file in files_to_send:
                 self.save_file(file, delete_after_upload)
@@ -192,8 +199,11 @@ class MainController(Logger):
         self.observers.append(Setup.Setup(self))
 
     def create_ftp_connection(self, url, username, password):
-        self.ftpController = FtpController(url, username, password)
-        self.observers.pop()
+        try:
+            self.ftpController = FtpController(url, username, password)
+            self.observers.pop()
+        except Exception as ftpError:
+            print(ftpError)
         self.notify()
 
     def end_ftp_connection(self):

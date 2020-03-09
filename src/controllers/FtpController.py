@@ -23,6 +23,9 @@ class FtpController(Logger):
             self.ftpSession = FTP(url)
         else:
             self.ftpSession = FTP(url, login, password)
+
+        print(self.ftpSession)
+
         self.ftpSession.login()
 
     def get_directory(self):
@@ -37,15 +40,21 @@ class FtpController(Logger):
             self.ftpSession.cwd(newDir)
         except ftplib.error_perm as resp:
             if str(resp) == '550 Path does not exist':
+                self.logger.error("550 Path does not exist")
                 return False
             else:
                 raise
+        except Exception as ftpError:
+            self.logger.error(ftpError)
         self.startPoint = newDir
 
     def upload_file(self, pathToSend: str):
         self.logger.debug("uploadFile")
-        with open(pathToSend, 'wb') as fileToSend:
-            self.ftpSession.storbinary('STOR ' + pathToSend, fileToSend)
+        try:
+            with open(pathToSend, 'wb') as fileToSend:
+                self.ftpSession.storbinary('STOR ' + pathToSend, fileToSend)
+        except Exception as err:
+            self.logger.error(err)
 
     def notify(self, **kwargs):
         pass

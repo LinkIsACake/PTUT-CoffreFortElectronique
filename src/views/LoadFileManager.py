@@ -43,7 +43,7 @@ class LoadFileManager(QWidget, Logger):
         self.update_list()
 
     def update_list(self):
-        self.files = self.controller.get_files()
+        self.files = self.controller.get_files_list()
 
         self.file_list.clear()
 

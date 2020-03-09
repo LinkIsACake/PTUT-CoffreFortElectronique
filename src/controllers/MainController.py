@@ -48,6 +48,11 @@ class MainController(Logger):
             observer.notify(**kwargs)
 
     def create_home(self, username: str):
+        """
+        Init UserHome when connected
+
+        :param username: name of the user
+        """
         self.logger.debug("login_ok, create Home")
         self.connected = True
         self.observers.pop()
@@ -111,7 +116,6 @@ class MainController(Logger):
 
     def save_file(self, path, delete_after_upload: bool):
         self.logger.debug("saveFile")
-
         """
         Send a order of encryption for a file
 
@@ -127,6 +131,11 @@ class MainController(Logger):
         return result
 
     def get_file(self, path):
+        """
+        Send a request to decrypt file
+        :param path : path of the file to decrypt
+
+        """
         self.logger.debug("getFile" + str(path))
         result = self.fileController.get_file(path, self.user)
         if result:
@@ -150,7 +159,12 @@ class MainController(Logger):
 
         self.notify(sending_file_status=True)
 
-    def get_files(self) -> []:
+    def get_files_list(self) -> []:
+        """
+        Get lists of all existing files in the user folder
+
+        :return list of file name
+        """
         self.logger.info("get_files")
         if self.ftpController is not None:
             ftpFiles = self.ftpController.list_directory()
@@ -167,6 +181,11 @@ class MainController(Logger):
             return files_list
 
     def get_users(self):
+        """
+        Get lists of all existing users
+
+        :return list of username
+        """
         return self.loginController.get_users()
 
     def setup(self):

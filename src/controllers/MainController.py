@@ -109,7 +109,7 @@ class MainController(Logger):
         else:
             self.notify(wrong_input=True)
 
-    def saveFile(self, path, delete_after_upload: bool):
+    def save_file(self, path, delete_after_upload: bool):
         self.logger.debug("saveFile")
 
         """
@@ -121,14 +121,14 @@ class MainController(Logger):
 
         result = False
         if path:
-            result = self.fileController.saveFile(path, self.user)
+            result = self.fileController.save_file(path, self.user)
             if result and delete_after_upload:
                 os.remove(path)
         return result
 
-    def getFile(self, path):
+    def get_file(self, path):
         self.logger.debug("getFile" + str(path))
-        result = self.fileController.getFile(path, self.user)
+        result = self.fileController.get_file(path, self.user)
         if result:
             self.notify(load_file_succes=True)
 
@@ -143,17 +143,17 @@ class MainController(Logger):
 
         if self.ftpController is not None:
             for file in files_to_send:
-                self.ftpController.uploadFile(file)
+                self.ftpController.upload_file(file)
         else:
             for file in files_to_send:
-                self.saveFile(file, delete_after_upload)
+                self.save_file(file, delete_after_upload)
 
         self.notify(sending_file_status=True)
 
     def get_files(self) -> []:
         self.logger.info("get_files")
         if self.ftpController is not None:
-            ftpFiles = self.ftpController.listDirectory()
+            ftpFiles = self.ftpController.list_directory()
             if ftpFiles:
                 return ftpFiles
             else:
@@ -178,5 +178,5 @@ class MainController(Logger):
         self.notify()
 
     def end_ftp_connection(self):
-        self.ftpController.quitSession()
+        self.ftpController.quit_session()
         self.ftpController = None

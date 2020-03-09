@@ -58,7 +58,7 @@ class LoadFileManager(QWidget, Logger):
     def get_file(self):
         file = self.file_list.takeItem(self.file_list.currentRow())
         if file:
-            self.controller.getFile(file.text())
+            self.controller.get_file(file.text())
         else:
             QMessageBox.about(self, Label.INFO, Label.NO_FILES_TO_SEND)
 

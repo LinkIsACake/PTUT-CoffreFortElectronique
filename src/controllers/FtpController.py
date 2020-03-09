@@ -22,16 +22,15 @@ class FtpController(Logger):
         if not login:
             self.ftpSession = FTP(url)
         else:
-            self.ftpSession = FTP(url, login,password)
+            self.ftpSession = FTP(url, login, password)
         self.ftpSession.login()
 
-
-    def getDirectory(self):
+    def get_directory(self):
         self.logger.debug("getDirectory")
         current_directory = self.ftpSession.pwd()
         return current_directory
 
-    def setDirectory(self, newDir: str):
+    def set_directory(self, newDir: str):
         self.logger.debug("setDirectory")
 
         try:
@@ -43,7 +42,7 @@ class FtpController(Logger):
                 raise
         self.startPoint = newDir
 
-    def uploadFile(self, pathToSend: str):
+    def upload_file(self, pathToSend: str):
         self.logger.debug("uploadFile")
         with open(pathToSend, 'wb') as fileToSend:
             self.ftpSession.storbinary('STOR ' + pathToSend, fileToSend)
@@ -51,7 +50,7 @@ class FtpController(Logger):
     def notify(self, **kwargs):
         pass
 
-    def listDirectory(self) -> bool:
+    def list_directory(self) -> bool:
         self.logger.debug("listDirectory")
 
         files = []
@@ -65,5 +64,5 @@ class FtpController(Logger):
             else:
                 raise
 
-    def quitSession(self):
+    def quit_session(self):
         self.ftpSession.close()

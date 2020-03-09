@@ -18,7 +18,7 @@ class FileController(Logger):
 
         self.destinationPath = path
 
-    def saveFile(self, path: str, utilisateur: User):
+    def save_file(self, path: str, utilisateur: User):
         file = File(path)
 
         try:
@@ -30,7 +30,7 @@ class FileController(Logger):
             self.logger.error(saveFileError)
             return False
 
-    def getFile(self, path: str, utilisateur: User):
+    def get_file(self, path: str, utilisateur: User):
         file = File(self.destinationPath + utilisateur.username + "/" + path)
         try:
             result = FileEncryptor.decrypt(self.destinationPath + utilisateur.username + "/" + "_" + path, file, utilisateur)

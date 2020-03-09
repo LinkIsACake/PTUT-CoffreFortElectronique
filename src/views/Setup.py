@@ -33,7 +33,7 @@ class Setup(QtWidgets.QDialog):
             ftpDirectory = self.repertoireLineEdit.text()
 
             self.controller.create_ftp_connection(ftpUrl,ftpUsername,ftpPassword)
-            self.controller.ftpController.setDirectory(ftpDirectory)
+            self.controller.ftpController.set_directory(ftpDirectory)
         else:
             localPath = self.cheminLocalLineEdit.text()
             self.controller.end_ftp_connection()

@@ -2,7 +2,7 @@ class Label:
 
     # LOGIN VIEW
 
-    FILES_LOAD_SUCCES = "Le fichier à bien était déchiffrer"
+    FILES_LOAD_SUCCES = "Le fichier a bien été déchiffré"
     LOGIN_BUTTON = "Connexion"
     REGISTRATION_BUTTON = "Inscription"
 
@@ -13,7 +13,7 @@ class Label:
 
     REGISTER_DONE = "Inscription réussie"
     WRONG_CREDENTIAL = "Mot-de-passe ou Nom d'utilisateur incorrect"
-    PATH_EXIST = "Un dossier correspond déjâ à ce nom utilisateur mais il n'est pas enregisté, veuillez supprimer le dossier"
+    PATH_EXIST = "Un dossier correspond déjâ à ce nom utilisateur mais n'est pas enregistré, veuillez supprimer le dossier correspondant"
     WRONG_INPUT = "Mot-de-passe ou Nom d'utilisateur non valide"
     ACCOUNT_EXISTING = "Compte déjâ existant"
 
